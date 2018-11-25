@@ -60,7 +60,7 @@ def list(page_num=1):
     albumsList = albumDict(disks)
     paramsTemplate = templateParams(albumsList, page_num, page_size, '')
     
-    template_context = dict(count=count_total, paramsPage=paramsTemplate, version=VERSION, build=BUILD)
+    template_context = dict(count=count_total, paramsPage=paramsTemplate, version=VERSION)
     return render_template('list.html', **template_context)
 
 @app.route('/artists/', methods=['GET'])
@@ -80,7 +80,7 @@ def list_artists(page_num=1):
     
     paramsTemplate = templateParams(compteursArtList, page_num, page_size, '')
     
-    template_context = dict(count=count_total, paramsPage=paramsTemplate) 
+    template_context = dict(count=count_total, paramsPage=paramsTemplate,version=VERSION) 
     return render_template('artistslist.html', **template_context)
             
         
@@ -153,7 +153,7 @@ def list_albums(artist):
     #app.logger.debug('Artiste infos : %s', artistInfos)
     #app.logger.debug('Params : %s', paramsTemplate)
     #app.logger.debug('Albums : %s', albumsList)                  
-    template_context = dict(count=count, artist=artist, artistInfos=artistInfos, paramsPage=paramsTemplate, list=albumsList) 
+    template_context = dict(count=count, artist=artist, artistInfos=artistInfos, paramsPage=paramsTemplate, list=albumsList, version=VERSION) 
     return render_template('artists_2.html', **template_context)
    
 @app.route('/artist/<int:artistId>/releases', methods=['GET'])
@@ -208,7 +208,7 @@ def discographie(artistId):
     paramsTemplate = {}
     paramsTemplate = templateParams(releasesList, 1, page_size, '')
 
-    template_context = dict(count=nbItems, paramsPage=paramsTemplate) 
+    template_context = dict(count=nbItems, paramsPage=paramsTemplate, version=VERSION) 
     return render_template('releases.html', **template_context)
 
 
@@ -269,7 +269,7 @@ def membre(name, artistId):
     #app.logger.debug('Artiste infos : %s', artistInfos)
     #app.logger.debug('Params : %s', paramsTemplate)
     #app.logger.debug('Albums : %s', albumsList) 
-    template_context = dict(count=count, artistInfos=artistInfos, paramsPage=paramsTemplate, list=albumsList) 
+    template_context = dict(count=count, artistInfos=artistInfos, paramsPage=paramsTemplate, list=albumsList, version=VERSION) 
     return render_template('modal-artist.html', **template_context)
         
 
@@ -282,7 +282,7 @@ def album(release):
     videosLength = len(listInfosDisk[4])
     stocksLength = len(const.listStorage)
     
-    template_context = dict(params=listInfosDisk[0], tracksList = listInfosDisk[1], extraartists = listInfosDisk[2], credits = listInfosDisk[3], videos = listInfosDisk[4], videosLength=videosLength, rangement=const.listStorage, stocksLength=stocksLength,id=int(release))    
+    template_context = dict(params=listInfosDisk[0], tracksList = listInfosDisk[1], extraartists = listInfosDisk[2], credits = listInfosDisk[3], videos = listInfosDisk[4], videosLength=videosLength, rangement=const.listStorage, stocksLength=stocksLength,id=int(release), version=VERSION)    
     return render_template('album.html', **template_context)
 
 
@@ -302,13 +302,13 @@ def albumByTitle(title):
 
 @app.route('/track/<track>', methods=['GET'])
 def albumByTrack(track):
-    page_size = 60
+    #page_size = 60
     disks = mongo.db.releases.find({"tracklist.title":track})
     count = mongo.db.releases.count({"tracklist.title":track})
     albumsList = albumDict(disks)                    
-    paramsTemplate = templateParams(albumsList, 1, page_size, '')
+    #paramsTemplate = templateParams(albumsList, 1, page_size, '')
         
-    template_context = dict(track=track, count=count, albumsList=albumsList)
+    template_context = dict(track=track, count=count, albumsList=albumsList, version=VERSION)
     return render_template('track-modal.html', **template_context)
 
 
@@ -326,7 +326,7 @@ def support(support, page_num=1):
     
     compteursGen = mongo.db.compteursGen.find()
           
-    template_context = dict(countList=compteursGen, support=support, typeList= "Support", paramsPage=paramsTemplate)    
+    template_context = dict(countList=compteursGen, support=support, typeList= "Support", paramsPage=paramsTemplate, version=VERSION)    
     return render_template('support.html', **template_context )
     
 @app.route('/categorie/<categorie>', methods=['GET'])
@@ -355,7 +355,7 @@ def categorylist(categorie, page_num=1):
     
     compteursGen = mongo.db.compteursGen.find()
         
-    template_context = dict(countList=compteursGen, support=affiche, typeList= "Catégorie", paramsPage=paramsTemplate)    
+    template_context = dict(countList=compteursGen, support=affiche, typeList= "Catégorie", paramsPage=paramsTemplate, version=VERSION)    
     return render_template('support.html', **template_context )
 
 @app.route('/list/<support>/<categorie>', methods=['GET'])
@@ -373,7 +373,7 @@ def listImprim(support, categorie, page_num=1):
     paramsTemplate = templateParams(listAlbums, page_num, page_size, 'list/'+support+'/'+categorie)
     compteursGen = mongo.db.compteursGen.find()
     libelle = support + '_' + categorie
-    template_context = dict(countList=compteursGen, support=libelle, typeList= "Support", paramsPage=paramsTemplate)    
+    template_context = dict(countList=compteursGen, support=libelle, typeList= "Support", paramsPage=paramsTemplate, version=VERSION)    
     return render_template('supp-categList.html', **template_context )
 
 '''
@@ -412,7 +412,7 @@ def printCollections(support, categorie):
     #pdfListFiles = listdir(APP_DIR+'/myapp/static/data/pdf/')
     pdfListFiles = glob.glob(path.basename(APP_DIR + '/myapp/static/data/pdf/*.pdf'))
 
-    template_context = dict(list=disks, countList=compteursGen, support=libelle, pdfFiles=pdfListFiles, file2Load=filename)
+    template_context = dict(list=disks, countList=compteursGen, support=libelle, pdfFiles=pdfListFiles, file2Load=filename, version=VERSION)
     return render_template('imprimList.html', **template_context )       
 '''
 
@@ -443,7 +443,7 @@ def storage():
         countList.append(stockItem)
     listConstRangement = [const.MSGE,const.MSGTB,const.MSGTM,const.MSDTB,const.MEAE]
 
-    template_context = dict(compteurs=countList, compteursGen=compteursGen, compteursRange=countRange, rangement=listConstRangement)
+    template_context = dict(compteurs=countList, compteursGen=compteursGen, compteursRange=countRange, rangement=listConstRangement,version=VERSION)
     return render_template('stockage.html', **template_context ) 
 
 @app.route('/stockage/<rangement>', methods=['GET'])
@@ -510,7 +510,7 @@ def storageDetail(rangement):
     
         listInfosDisk.append(listAlbums)
 
-    template_context = dict(list=listInfosDisk, compteur=countList, rangement=rangement, empl=listRangement, const=listConstRangement, nbEmpl=len(listRangement), color=const.dictIMgBarre, support=support)
+    template_context = dict(list=listInfosDisk, compteur=countList, rangement=rangement, empl=listRangement, const=listConstRangement, nbEmpl=len(listRangement), color=const.dictIMgBarre, support=support, version=VERSION)
     return render_template('detail_stockage.html', **template_context )
     
 @app.route('/about/', methods=['GET'])
