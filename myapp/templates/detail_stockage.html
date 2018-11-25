@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+<div class="container"><br />
+    <<div class="row">
+        {{ macros.ligne() }}
+    </div>
+  
+    {{ macros.stockage() }}
+
+    <div class="row">
+        <br /> <p class="h5">Stockage des albums</p><br />
+    </div>
+    
+    {% for n in range(0, nbEmpl) %}
+    <div class="row">
+        <table class="table-responsive" width="100%">
+            <thead class="blue white-text text-center">
+                <tr>
+                    <th>{{const[n]}} --- {{compteur[n]}} {{support}}</th>
+                </tr>
+                </thead>    
+                <tbody>
+                    <tr>
+                    {% set albums = list[n] %}
+                    {% for i in range(0, compteur[n]) %}
+                        {% set genre = albums[i].get('genres') %}
+                        {% if genre[0] in color %}
+                            {% set colorDisk = color[genre[0]] %}
+                        {% else %}
+                            {% set colorDisk = '/static/img/vinyl-tranche-violet.jpg' %}
+                        {% endif %}
+                        <td class="list-inline-item" width="1%"><a class="nav-link" href="{{serverURL}}/album/{{albums[i].get('id')}}"><img src="{{colorDisk}}" data-toggle="tooltip" data-placement="right" 
+                            title="{{albums[i].get('position')}} -- {{albums[i].get('artistName')}} -- {{albums[i].get('title')}}"></a></td>
+                    {% endfor %}
+                </tr>
+            </tbody>    
+        </table>
+    </div>
+    {% endfor %}
+  
+{% endblock %}

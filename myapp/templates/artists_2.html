@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}                      
+
+<div class="container"> 
+    <div class="row">
+        {{ macros.ligne() }}
+    </div>
+    <p><hr width="50%" color="blue"></p>        
+    <div class="form-row">
+        <div class="col12 col-md-6 col-lg-6 text-primary text-center">
+            <div class="form-group col-md-6">
+                <label class="blue-text" for="name">Nom d'artiste</label>
+                <input type="text" class="form-control" id="name" placeholder="{{artistInfos[0].get('name')}}">
+            </div>
+        </div>
+        <div class="col12 col-md-6 col-lg-6 text-primary text-center">
+            <div class="form-group col-md-12">
+                <label class="blue-text" for="realName">Nom réel</label>
+                <input type="text" class="form-control" id="realname" placeholder="{{artistInfos[0].get('realname')}}">
+            </div>
+        </div>         
+    </div>
+    
+    <div class="form-row">
+        <div class="col-12 col-md-6 col-lg-6s">
+            <label class="blue-text" for="staticNotes">Notes</label>
+            <textarea class="form-control" rows="10" id="profil">{{artistInfos[0].get('profile')}}</textarea>
+        </div>
+    </div>
+    <div class="row">
+        {{ macros.ligne() }}
+    </div>
+    
+    <div class="row">
+        {{ macros.ligne() }}
+    </div>                  
+    <p><hr width="50%" color="blue"></p>
+    <div class="row">
+        <div class="table-responsive card-text">
+            <p class="h5"><br />
+                {% if count == 1 %}
+                    {{count}} Album dans ma collection
+                {% else %}
+                    {{count}} Albums dans ma collection
+                {% endif %}
+            </p>
+            {% set list = paramsPage['list'] %}   
+            {% for index in range(0, paramsPage['pagelength']) %}
+                <div class="row text-center">
+                {% set index = loop.index0 * 6 %}
+                    {% for colonne in range(0, 6) %}
+                        {% set index = index + colonne %}
+                        <div class="col col-md-4 col-lg-2">
+                            <div class="col-sm card-text"> 
+                            {% if list[index].get('thumb') != 'Vide' %}
+                                <a class="nav-link" href="{{serverURL}}/album/{{list[index].get('id')}}">
+                                <img src="{{list[index].get('thumb')}}" class="img-fluid z-depth-2" alt="image"></a>
+                                <p>{{list[index].get('title')}} </p>
+                                <p>{{list[index].get('formatName')}}  
+                                {% if (list[index].get('year')) != 0 %}
+                                    -- {{list[index].get('year')}}
+                                {% endif %}</p>
+                            {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        {{ macros.ligne() }}
+    </div>
+
+    <div class="form-row">    
+        <div class="col-6 col-md-6 col-lg-6 ">
+            {% set listUrls = artistInfos[0].get('urls') %}
+            <div class="table-responsive table-fixed">
+                <table class="table-striped table-bordered" cellspacing="8" width="100%">
+                    <thead class="blue white-text">
+                        <tr>
+                            <th th width="100%" class="text-center">Liens</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for lien in listUrls %}
+                        <tr>
+                            <td width="100%"><a class="nav-link blue-text" href="{{lien}}" target="_blanck">{{lien}}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-6 col-md-6 col-lg-6 ">
+            {% if artistInfos[0].get('membersLength') > 0 %}
+            {% set members = artistInfos[0].get('members') %}
+            <div class="table-responsive table-fixed ">
+                <table class="table-striped table-bordered" cellspacing="8" width="100%">
+                    <thead class="blue white-text">
+                        <tr>
+                            <th width="100%" class="text-center">Membres du groupe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                        <tr>
+                            <td width="100%"><a class="nav-link blue-text" href="{{serverURL}}/members/{{member['name']}}/{{member['id']}}">{{member['name']}}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}    
+        </div>
+    </div>
+    <p><hr width="50%" color="blue"></p>
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-6 text-center">
+            <!-- <a class="btn blue-gradient btn-sm" href="{{serverURL}}/artist/{{artistInfos[0].get('id')}}/releases" role="button">plus sur Discogs®</a> -->
+            <a class="btn blue-gradient btn-sm" href="{{artistInfos[0].get('uri')}}" target="_blank" role="button">plus sur Discogs®</a>
+        </div>
+    </div>
+     
+</div>
+
+
+{% endblock %}

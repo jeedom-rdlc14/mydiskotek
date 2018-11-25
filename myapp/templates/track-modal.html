@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+<div class="container"> 
+    <!-- Modal -->
+    <div class="modal fade right" id="trackModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">    
+        <div class="modal-dialog modal-top-aacenter modal-notify modal-info" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <div class="modal-header primary-color darken-3 white-text">
+                    <p class="heading">{{track}} dans {{count}} 
+                        {% if count > 1 %}
+                            albums.
+                        {% else %}
+                            album.
+                        {% endif %}
+                    </p>
+                    <button type="button" class="close" data-dismiss="modal" onClick="javascript:history.go(-1)" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                    {% for album in albumsList %}
+                        <div class="row">
+                            <div class="col-6">
+                                <a class="nav-link" href="{{serverURL}}/album/{{album['id']}}">
+                                <img src="{{album['thumb']}}" class="img-fluid z-depth-2" alt="image"></a>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>{{album['title']}}</strong></p>
+                                <p><a class="nav-link" href="{{serverURL}}/artist/{{album['artistName']}}">{{album['artistName']}}</a></p>
+                                <p>{{album['formatName']}}  
+                                {% if album['year'] != 0 %}
+                                      -- {{album['year']}}
+                                {% endif %}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

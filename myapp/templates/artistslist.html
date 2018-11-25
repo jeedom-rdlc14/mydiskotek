@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+<div class="container"><br />
+    s   
+{{ macros.entete(count, 'Artistes', '') }}
+        
+{{ macros.pagination('artists', paramsPage['list'], paramsPage['page_num'], paramsPage['total']) }}
+    
+    {% set list = paramsPage['list'] %}   
+    {% for index in range(0, paramsPage['pagelength']) %}
+        <div class="row text-center">
+            {% set index = loop.index0 * 6 %}
+            {% for colonne in range(0, 6) %}
+                {% set index = index + colonne %}
+                <div class="col-sm table-bordered">
+                    {% if list[index].get('thumb') != 'Vide' %}
+                        <a class="h6 nav-link blue-text bold" href="{{serverURL}}/artist/{{list[index].get('artistName')}}">{{list[index].get('artistName')}}</a>
+                        {% if list[index].get('release') == 1 %}
+                            <p class="h6">{{list[index].get('release')}} album</p>
+                        {% else %}
+                            <p class="h6">{{list[index].get('release')}} albums</p>
+                        {% endif %}
+                        {% if list[index].get('vinyl') > 0 %}
+                            <p>Vinyl({{list[index].get('vinyl')}})
+                        {% endif %}
+                        {% if list[index].get('cd') > 0 and list[index].get('vinyl') > 0 %}
+                            -- CD({{list[index].get('cd')}})
+                        {% elif list[index].get('cd') > 0 %}
+                            CD({{list[index].get('cd')}})
+                        {% endif %}</p>
+                        {% if list[index].get('dvd') > 0 %}
+                            <p>DVD({{list[index].get('dvd')}})
+                        {% endif %}
+                        {% if list[index].get('dvd') > 0 and list[index].get('demat') > 0 %}
+                            -- DEM({{list[index].get('cd')}})
+                        {% elif list[index].get('demat') > 0 %}
+                            DEM({{list[index].get('demat')}})
+                        {% endif %}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{{ macros.pagination('list', paramsPage['list'], paramsPage['page_num'], paramsPage['total']) }}
+</div>    
+    
+{% endblock %}

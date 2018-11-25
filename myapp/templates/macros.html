@@ -1,0 +1,216 @@
+<!--Pagination -->
+{% macro pagination(urlName, list, page_num, total) %}
+    
+    <div class="d-flex justify-content-center">
+        <nav>
+        <br />    
+        {% if total > 1 %}
+        <ul class="pagination pg-blue">
+            <li class="page-item"><a class="page-link" href="/{{urlName}}/1">Début</a></li>
+            {% if page_num == 1 %}
+            <li class="page-item disabled">
+                <a class="page-link" aria-label="Previous" href="/{{urlName}}/{{page_num-1}}">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Précédente</span>
+                </a>
+            </li>
+            {% elif page_num != 1 %}
+            <li class="page-item">
+                <a class="page-link" aria-label="Previous" href="/{{urlName}}/{{page_num-1}}">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Précédente</span>
+                </a>
+            </li>
+            {% endif %}
+        
+            {% for page in range(1, total+1) %}
+                {% if page == page_num %}
+                    <li class="page-item active"><a class="page-link" href="/{{urlName}}/{{page}}">{% print(page) %}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="/{{urlName}}/{{page}}">{% print(page) %}</a></li>
+                {% endif %}
+            {% endfor %}
+        
+            {% if page_num == total %}
+                <li class="page-item disabled"><a class="page-link" aria-label="Next" href="/{{urlName}}/{{page_num+1}}">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Suivante</span></a>
+                </li>
+            {% elif page_num != total %}
+                <li class="page-item"><a class="page-link" aria-label="Next" href="/{{urlName}}/{{page_num+1}}">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Suivante</span></a>
+                </li>
+            {% endif %}
+
+            <li class="page-item"><a class="page-link" href="/{{urlName}}/{{total}}">Fin</a></li>
+        </ul>
+        {% endif %}
+        </nav>
+    </div>
+
+{% endmacro %}
+<!-- /Pagination -->
+
+<!--entete -->
+{% macro entete(compteur, message1, message2) %}
+    
+<div class="row">
+    <div class="col-9">
+        <p class="h5"><br />{{ message1 }} : {{ compteur }} {{ message2 }}</p>
+        <hr width="50%" color="white">
+    </div>
+</div>
+{% endmacro %}
+<!-- /entete -->
+
+{% macro badge(compteur, message1, message2) %}
+
+<button type="button" class="btn blue-gradient btn-sm">
+  {{message}} <span class="badge badge-light">{{compteur}}</span>
+  <span class="sr-only">unread messages</span>
+</button>
+
+{% endmacro %}
+
+<!-- /boutonsList -->
+{% macro boutonsList() %}
+<div class="row">
+    <form class="form-inline" id="listsForm" action="#" method="post">
+    <div class="col-4">
+        <p class="h5 text-center text-primary">Formats</p>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="formatRadio1" name="formatRadio" class="custom-control-input" value="Tout" checked>
+            <label class="custom-control-label" for="formatRadio1">Tout</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="formatRadio2" name="formatRadio" class="custom-control-input" value="Vinyl">
+            <label class="custom-control-label" for="formatRadio2">Vinyl</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="formatRadio3" name="formatRadio" class="custom-control-input" value="CD">
+            <label class="custom-control-label" for="formatRadio3">CD</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="formatRadio4" name="formatRadio" class="custom-control-input" value="DVD">
+            <label class="custom-control-label" for="formatRadio4">DVD</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="formatRadio5" name="formatRadio" class="custom-control-input"  value="APPLE">
+            <label class="custom-control-label" for="formatRadio5">Apple Music</label>
+        </div>
+    </div>
+    <div class="col-6">
+        <p class="h5 text-center text-primary">Genres</p>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio1" name="genreRadio" class="custom-control-input" value="Blues">
+            <label class="custom-control-label" for="genreRadio1">Blues</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio2" name="genreRadio" class="custom-control-input" value="Electronic">
+                <label class="custom-control-label" for="genreRadio2">Electro</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio3" name="genreRadio" class="custom-control-input" value="Folk, World, & Country">
+            <label class="custom-control-label" for="genreRadio3">Folk / World</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio4" name="genreRadio" class="custom-control-input" value="Funk Soul">
+            <label class="custom-control-label" for="genreRadio4">Funk / Soul</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio5" name="genreRadio" class="custom-control-input" value="Hip Hop">
+            <label class="custom-control-label" for="genreRadio5">Hip Hop</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio6" name="genreRadio" class="custom-control-input" value="Jazz">
+            <label class="custom-control-label" for="genreRadio6">Jazz</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio7" name="genreRadio" class="custom-control-input" value="Latin">
+            <label class="custom-control-label" for="genreRadio7">Latin</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio8" name="genreRadio" class="custom-control-input" value="Pop">
+            <label class="custom-control-label" for="genreRadio8">Pop</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio9" name="genreRadio" class="custom-control-input" value="Reggae">
+            <label class="custom-control-label" for="genreRadio9">Reggae</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="genreRadio10" name="genreRadio" class="custom-control-input" value="Rock">
+            <label class="custom-control-label" for="genreRadio10">Rock</label>
+        </div>
+    </div>
+    <div class="col-2">
+        <button type="button" name="validList" onclick="listsCollection();" class="btn blue-gradient btn-sm" data-toggle="tooltip" data-placement="top" title="Affiche les listes triées par support et/ou genre musical"><i class="fa fa-thumbs-o-up"></i></button>
+       <!-- <button type="button" name="imprimList" onclick="printCollections();" class="btn primary-gradient btn-smy" data-toggle="tooltip" data-placement="top" title="Imprime les listes triées par support et/ou genre musical"><i class="fa fa-print"></i></button> -->
+     </div>
+    </form>
+</div>
+
+{% endmacro %}
+<!-- /boutonsList -->
+
+<!-- stockage -->
+{% macro stockage() %}
+<div class="row">
+    <form class="form-inline" id="listEmplForm" action="#" method="post">
+    <div class="col-11">
+        
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="emplRadio1" name="emplRadio" class="custom-control-input" value="Tout" checked>
+            <label class="custom-control-label" for="emplRadio1">Tout&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <!-- <label class="custom-control-label h6 bold" for="emplRadio1"> | SALON |</label> -->
+        </div>
+        <div class="custom-control custom-control-inline">
+            <label class="h6 bold" for="emplRadio1"> | SALON |</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="emplRadio2" name="emplRadio" class="custom-control-input" value="MSGE">
+            <label class="custom-control-label" for="emplRadio2">Etagère </label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="emplRadio3" name="emplRadio" class="custom-control-input" value="MSGT">
+            <label class="custom-control-label" for="emplRadio3">Tiroir Bas</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="emplRadio4" name="emplRadio" class="custom-control-input" value="MSGTM">
+                <label class="custom-control-label" for="emplRadio4">Tiroirs Milieu</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="emplRadio5" name="emplRadio" class="custom-control-input" value="MSDT">
+            <label class="custom-control-label" for="emplRadio5">Tiroir droite</label>
+        </div>
+        <div class="custom-control custom-control-inline">
+            <label class="h6 bold" for="emplRadio1"> | ENTREE |</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="emplRadio6" name="emplRadio" class="custom-control-input"  value="MEAE1">
+            <label class="custom-control-label" for="emplRadio6">Armoire</label>
+        </div>
+    </div>
+    
+    <div class="col-1">
+        <button type="button" name="validList" onclick="displayStockage();" class="btn blue-gradient btn-sm" data-toggle="tooltip" data-placement="top" title="Affiche les albums triées par semplacement de rangement"><i class="fa fa-thumbs-o-up"></i></button>
+        
+      <!--  <button type="button" name="imprimList" onclick="printStockage();" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Imprime les albums triées par semplacement de rangement"><i class="fa fa-print"></i>&nbsp;Imprimer</button> -->
+        
+     </div>
+    </form>
+</div>
+
+{% endmacro %}
+<!-- /stockage -->
+
+<!-- ligne -->
+{% macro ligne() %}
+
+<div class="row">
+    <p><hr width="100%" color="blue"></p>
+</div> 
+
+{% endmacro %}
+<!-- /ligne -->
+

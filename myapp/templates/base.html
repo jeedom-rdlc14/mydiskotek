@@ -1,0 +1,266 @@
+{# _app/templates/base.html_ #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>myDiskotek - Dashboard</title>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap Core CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">-->
+    <link href="{{serverURL}}/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{serverURL}}/static/css/mdb.min.css" rel="stylesheet" type="text/css">
+    <!-- typeaheadjs styles  -->
+    <link href="{{serverURL}}/static/css/typeaheadjs.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="{{serverURL}}/static/css/mydiskotek.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<!--Main Navigation-->
+<header>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark primary-color"> 
+    <a class="navbar-brand img-fluid " href="{{ url_for('index') }}"><img src="{{serverURL}}/static/img/logodiskotek.png" height="60" alt="myDiskotek"></a>
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active" id="#home">
+                <a class="nav-link" href="{{serverURL}}/"><i class="fa fa-home"></i>Accueil</a> 
+            </li>
+            <li class="nav-item active" id="#listshome">
+                <a class="nav-link" href="{{serverURL}}/list"><i class="fa fa-list-ul"></i>Listes</a> 
+            </li>
+            <li class="nav-item" id="#artists">
+                <a class="nav-link" href="{{serverURL}}/artists"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Artistes</a>
+            </li>
+            <li class="nav-item" id="#stockage">
+                <a class="nav-link" href="{{serverURL}}/stockage"><i class="fa fa-barcode" aria-hidden="true"></i>&nbsp;Stockage</a>
+            </li>
+            <li class="nav-item" id="#about">
+                    <a class="nav-link" href="{{serverURL}}/about"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;A propos</a>
+                </li>
+            <li class="nav-item" id="#">
+                <p>  </p>
+            </li>
+            <form>
+                <div class="md-form form-inline my-0" id="multi-dataset">
+                    <input class="form-control form-control-lg mr-sm-2 typeahead" type="text" placeholder="artiste, album ou titre">
+                </div>
+            </form>
+            
+        </ul>
+        <!-- <ul class="nav navbar-nav nav-flex-icons ml-auto">
+            {% if current_user.is_anonymous %}
+                <li class="nav-item"><a class="nav-link" href="{{serverURL}}/login"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Login</a></li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link"><i class="fa fa-gear"></i><span class="clearfix d-none d-sm-inline-block">Settings</span></a>
+            </li>
+            <li><a class="nav-link" href="{{serverURL}}/logout"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Logout</a></li>
+            {% endif %}
+        </ul> -->
+    </div>
+</nav>
+</header>
+<body>
+<!--Main Navigation-->    
+<!--Main Layout-->
+<main id="top-section" class="my-5">
+    {% block content %}
+    
+    {% endblock %}
+</main>
+
+<!--Footer-->
+<footer class="page-footer font-small blue pt-4 mt-4">
+    <!--Copyright-->
+    <div class="footer-copyright text-center py-3">
+        © 2017-2018 - <a href="https://{{serverURL}}"> myDiskOteK </a>-{{version}} - b{{build}} - [Rdlc_Dev]
+    </div>
+</footer>
+
+<!-- Back to the top -->
+<div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px;">
+    <a href="#top-section" class="btn-floating btn-large blue">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+    
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- <script src="{{serverURL}}/static/js/jquery-3.2.1.min.js"></script> -->
+<script type="text/javascript" src="{{serverURL}}/static/js/jquery-3.3.1.min.js"></script>
+<script src="{{serverURL}}/static/js/popper.min.js"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script> -->
+<script src="{{serverURL}}/static/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="{{serverURL}}/static/js/mdb.min.js"></script>
+ <!-- typeahead JavaScript -->
+<script src="{{serverURL}}/static/js/typeahead.bundle.js"></script>
+
+<script>
+       var albums = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: '{{aerverURL}}/static/data/json/albumsList.json'
+    });
+        
+    var artists = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: '{{aerverURL}}/static/data/json/artistsList.json'
+    });
+    
+    var tracks = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('track'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: '{{aerverURL}}/static/data/json/tracksList.json'
+    });
+    
+    $('#multi-dataset .typeahead').typeahead({
+        minLength: 1,
+        hint: true,
+        highlight: true
+    },
+    {
+        name: 'artists-names',
+        display: 'name',
+        source: artists,
+        templates: {
+            header: '<p class="h5 secondary-color white-text">Artistes</p>'
+        }
+    },
+    {
+        name: 'albums-titles',
+        display: 'title',
+        source: albums,
+        templates: {
+          header: '<p class="h5 secondary-color white-text">Albums</p>'
+        }
+    },
+    {
+        name: 'albums-tracks',
+        display: 'track',
+        source: tracks,
+        templates: {
+          header: '<p class="h5 secondary-color white-text">Titres</p>'
+        }
+    }).on('typeahead:selected', function (e, datum) {
+        if (datum.name != null) {
+            //console.log(datum.name)
+            location.href='{{serverURL}}/artist/' + datum.name
+        };
+       
+        if (datum.title != null){
+            //console.log(datum.title)
+            location.href='{{serverURL}}/title/' + datum.title
+        };
+        if (datum.track != null){
+            //console.log(datum.track)
+            location.href='{{serverURL}}/track/' + datum.track
+        };
+    });
+</script>
+    
+<script>
+    // get value of selected 'formatRadio' and 'genreRadio' radio buttons in 'listsForm'
+    function getRadioVal(formulaire, radio) {
+        
+        var boutons = document.getElementsByName(radio);
+        var valeur = '';
+        for(var i = 0; i < boutons.length; i++){
+            if(boutons[i].checked){
+                valeur = boutons[i].value;
+            }
+        }
+        
+        return valeur;
+    }
+    
+    function listsCollection() {
+        var formatVal = getRadioVal('listsForm', 'formatRadio');
+        var genreVal = getRadioVal('listsForm', 'genreRadio');
+        
+        switch(formatVal) {
+             case('Tout'):
+                if (genreVal === '') {
+                    document.location.href='{{serverURL}}/list/';
+                } else {
+                    document.location.href='{{serverURL}}/categorie/' + genreVal;
+                }
+                break;
+                                            
+            default:
+                if (genreVal === '') {
+                    document.location.href='{{serverURL}}/' + formatVal +'/';
+                    
+                } else {
+                    document.location.href='{{serverURL}}/list/' + formatVal +'/' + genreVal + '/';
+                    
+                }
+        }
+   }
+
+    function printCollections() {
+        var formatVal = getRadioVal('listsForm', 'formatRadio');
+        var genreVal = getRadioVal('listsForm', 'genreRadio');
+        
+        switch(formatVal) {
+             case('Tout'):
+                alert("Pas d'impression possible pour la collection entière!");
+                break;
+                                   
+            default:
+                if (genreVal === '') {
+                    var valGenre = 'undefined';
+                    document.location.href='{{serverURL}}/imprim/' + formatVal +'/' + valGenre + '/';
+                } else {
+                    document.location.href='{{serverURL}}/imprim/' + formatVal +'/' + genreVal + '/';
+                }
+                
+        }
+   }
+
+   function displayStockage() {
+        var emplVal = getRadioVal('listEmplForm', 'emplRadio');
+        switch(emplVal) {
+            case('Tout'):
+                document.location.href='{{serverURL}}/stockage/';
+                break;
+                                            
+            default:
+                document.location.href='{{serverURL}}/stockage/' + emplVal;
+        }
+   }
+
+   
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#artistModal").modal('show');
+    });
+
+    $(document).ready(function(){
+        $("#trackModal").modal('show');
+    });
+</script>
+
+<script>
+// Tooltips Initialization
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+</body>
+</html>

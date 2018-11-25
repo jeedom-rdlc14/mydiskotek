@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+<div class="container">
+    <<div class="row">
+        {{ macros.ligne() }}
+    </div>
+    
+    {{ macros.stockage() }}
+    {{ macros.ligne() }} 
+    <div class="row">
+            <p class="h5 text-primary">Rangement des albums</p>
+    </div>
+    <div class="row blue text-center white-text">
+        <div class="col-sm table-bordered">
+            <p class="h6 bold">VINYL</p>
+            <p class="h6 bold">Total : {{compteursGen[0].get('Vinyl')}} &nbsp;&nbsp;&nbsp;&nbsp; Reste à classer : {{compteursRange[0].get('Vinyl')}}</p></a>
+        </div>
+        <div class="col-sm table-bordered">
+            <p class="h6 bold">CD</p>
+            <p class="h6 bold">Total : {{compteursGen[0].get('CD')}} &nbsp;&nbsp;&nbsp;&nbsp; Reste à classer : {{compteursRange[1].get('CD')}}</p></a>
+        </div>
+        <div class="col-sm table-bordered">
+            <p class="h6 bold">DVD</p>
+            <p class="h6 bold">Total : {{compteursGen[0].get('DVD')}} &nbsp;&nbsp;&nbsp;&nbsp;Reste à classer : {{compteursRange[2].get('DVD')}}</p></a>
+            </div>
+    </div>
+    {{ macros.ligne() }}
+    <div class="row">
+        <div class="col-4">
+    
+            <a class="nav-link" href="{{serverURL}}/stockage/MSGE"> <p class="h6">{{rangement[0]}}<br /></p></a>
+        
+            <div class="row text-center secondary-color white-text">
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[0].get('MSGEH1')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[1].get('MSGEH2')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[2].get('MSGEH3')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[3].get('MSGEH4')}}</p>
+                </div>
+            </div>
+            <div class="row text-center secondary-color white-text">
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[4].get('MSGEB1')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[5].get('MSGEB2')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[6].get('MSGEB3')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[7].get('MSGEB4')}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <a class="nav-link" href="{{serverURL}}/stockage/MSGTM"><p class="h6">{{rangement[2]}}</p></a>
+                  
+            <div class="row text-center default-color white-text">
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[8].get('MSGT1C1')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[9].get('MSGT1C2')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[10].get('MSGT1C3')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[11].get('MSGT1C4')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[12].get('MSGT1C5')}}</p>
+                </div>
+            </div>
+            
+            <div class="row text-center default-color white-text">
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[13].get('MSGT2C1')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[14].get('MSGT2C2')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[15].get('MSGT2C3')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[16].get('MSGT2C4')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[17].get('MSGT2C5')}}</p>
+                </div>
+            </div>
+                
+            <div class="row text-center default-color white-text">
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[18].get('MSGT3C1')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[19].get('MSGT3C2')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[20].get('MSGT3C3')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[21].get('MSGT3C4')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[22].get('MSGT3C5')}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {{ macros.ligne() }}  
+    
+    <div class="row">
+        <div class="col-4">
+            <a class="nav-link" href="{{serverURL}}/stockage/MSGT"><p class="h6">{{rangement[1]}}</p></a>
+                  
+            <div class="row text-center default-color white-text">              
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold">{{compteurs[23].get('MSGTB1')}}</p></a>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[24].get('MSGTB2')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[25].get('MSGTB3')}}</p>
+                </div>
+            </div>
+        </div>
+                 
+        <div class="col-8">
+            <a class="nav-link" href="{{serverURL}}/stockage/MSDT"><p class="h6">{{rangement[3]}}</p></a>
+            <div class="row text-center secondary-color white-text">
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[26].get('MSDTC1')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[27].get('MSDTC2')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[28].get('MSDTC3')}}</p>
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[29].get('MSDTC4')}}</p>
+                    
+                </div>
+                <div class="col-sm table-bordered">
+                    <p class="h6 bold"> {{compteurs[30].get('MSDTC5')}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+                
+    {{ macros.ligne() }}
+
+    <div class="row">
+         <a class="nav-link" href="{{serverURL}}/stockage/MEAE1"><p class="h6">{{rangement[4]}}</p></a>
+    </div>          
+        <div class="row text-center secondary-color white-text">
+            <div class="col-sm table-bordered">
+               <p class="h6 bold"> {{compteurs[31].get('AEE11')}}</p>
+            </div>
+            <div class="col-sm table-bordered">
+                <p class="h6 bold">{{compteurs[32].get('AEE12')}}</p>
+            </div>
+            <div class="col-sm table-bordered">
+                <p class="h6 bold">{{compteurs[33].get('AEE13')}}</p>
+            </div>
+        </div>
+        <div class="row text-center secondary-color white-text">
+            <div class="col-sm table-bordered">
+                <p class="h6 bold"> {{compteurs[34].get('AEE21')}}</p>
+            </div>
+            <div class="col-sm table-bordered">
+                <p class="h6 bold">{{compteurs[35].get('AEE22')}}</p>
+            </div>
+            <div class="col-sm table-bordered">
+                <p class="h6 bold">{{compteurs[36].get('AEE23')}}</p>
+            </div>
+        </div>
+
+        
+    
+{% endblock %}

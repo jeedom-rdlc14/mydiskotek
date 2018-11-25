@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        {{ macros.ligne() }}
+    </div>
+    <div class="row">    
+        <div class="col-12">
+            <br /><p class="h4">A propos de myDiskOteK</p>
+            <p>Version : {{version}}  ==  Build du : {{build}}</p>
+            {{ macros.ligne() }}
+            <div class="media">
+                <img src="../static/img/logodiskotek.png" width="100" height="100" class="d-flex mr-3" alt="myDiskotek">
+                <div class="media-body">
+                <p class="card-text">   <b>myDiskOteK</b> est un site présentant ma collection personnelle de disques (vinyls, cd, dvd, ...).<br />
+                Passionné de musique depuis mon plus jeune âge, j'ai commencé ma collection il y a de nombreuses années. Ma collection s'est bien agrandie et j'ai eu besoin de la repertorier.<br /> 
+                Informaticien (développeur web) de métier, j'ai d'abord recherché sur le net un outil de gestion de collection pratique, simple et en français. Ne trouvant pas mon bonheur, j'ai créé ce site.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-2">
+            <br /><p class="h4">Logiciel</p>
+            {{ macros.ligne() }}
+        </div>
+    </div>    
+    
+    <div class="row">
+        <div class="col-6">
+            <div class="media">
+                <img src="../static/img/python_logo.png" class="img-fluid" alt="Python">
+                <div class="media-body">
+                    <p class="card-text"><b>Python</b> est un langage de programmation, dont la première version est sortie en 1991. <br />Il est puissant, facile à apprendre et riche en possibilités.<br />
+                    Ce langage a été baptisé ainsi en hommage à la troupe les « Monty Python ». </p>
+                    <a href="https://www.python.org/" target="_blank" class="btn blue btn-sm">En savoir plus...</a>
+                </div>
+            </div>        
+            {{ macros.ligne() }}
+            <div class="media">
+                <img src="../static/img/logo-discogs.png" class="img-fluid" alt="Discogs">
+                <div class="media-body">
+                    <p class="card-text"><b>Discogs</b> est une base de données sur la musique, auto-alimentée par ses utilisateurs. <br />Plus de 386 000 personnes y ont déjà ainsi contribué, et construit un catalogue de plus de 9 300 000 Références et de plus de 5 400 000 artistes. <br />
+                    <a href="https://www.discogs.com/" target="_blank" class="btn blue btn-sm">plus sur Discogs</a>
+                    <br /><br />
+                    <p class="card-text">MyDiskOteK utilise l'API mise à disposition par Discogs
+                    <a href="https://www.discogs.com/developers/" target="_blank" class="btn blue btn-sm">plus sur l'API</a></p>
+                </div>
+            </div>
+        </div>    
+        <div class="col-6">
+            <div class="media">
+                <img src="../static/img/mongoDB-logo.png" class="img-fluid" alt="MongoDB">
+                <div class="media-body">
+                    <p class="card-text"><b>MongoDB</b> est un système de gestion de base de données ou SGBD. <br />Grâce à MongoDB vous allez pouvoir stocker vos données un peu comme vous le feriez dans un fichier JSON. C'est à dire, une sorte de dictionnaire géant composé de clés et de valeurs. <br />Ces données peuvent ensuite être exploitées par du javascript, directement intégré dans MongoDB, mais peuvent également être exploitées par d'autre langage comme python.</p>
+                    <a href="https://www.mongodb.com/" target="_blank" class="btn blue btn-sm">En savoir plus...</a>
+                </div>
+            </div>
+            {{ macros.ligne() }}
+            <div class="media">
+                <img src="../static/img/flask.png" class="img-fluid" alt="Flask">
+                <div class="media-body">
+                    <p class="card-text">  &nbsp;&nbsp;Flask est un framework open-source de développement web en Python. Son but principal est d'être léger, afin de garder la souplesse de la programmation Python, associé à un système de templates. Il est distribué sous licence BSD
+                    <a href="http://flask.pocoo.org/" target="_blank" class="btn blue btn-sm">En savoir plus...</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-2">
+                <br /><p class="h4">Matériel</p>
+                {{ macros.ligne() }}
+            </div>
+        </div>   
+    <div class="row">
+        <div class="col-6">
+            <div class="media">
+                <img src="../static/img/Raspberry-Pi-3.jpg" class="img-fluid" alt="Raspberry Pi">
+                <div class="media-body">
+                    <p class="card-text">&nbsp;&nbsp;L'application est hébergée sur une carte <b>Raspberry Pi</b>.<br />
+                        &nbsp;&nbsp;Le Raspberry Pi 3 (modèle B) est un ordinateur miniature de la taille d'une carte de crédit. Il repose sur un processeur à quadruple cœur ARM Cortex-A53, le BCM2837 de Broadcom, cadencé à 1,2 GHz. La communication par Wi-Fi 802.11n et du Bluetooth 4.1 est maintenant intégrée au RPi 3.
+                    </p>
+                    <a href="https://www.raspberrypi.org/" target="_blank" class="btn blue btn-sm">En savoir plus...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

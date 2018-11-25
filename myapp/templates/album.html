@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+
+<div class="container"> 
+    <div class="row">
+        {{ macros.ligne() }}
+    </div>
+    <p><hr width="50%" color="blue"></p>
+    {% for document in params %}
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-6 text-center">
+            <p class="h5">Album : {{id}}</p>
+            <div class="view overlay hm-white-slight align-center">
+                <img class="rounded mx-auto d-block img-fluid z-depth-3"src="{{document['thumb']}}" width="200" height="200" alt="Album {{document['id']}}">
+            </div>
+            <p><hr width="50%" color="blue"></p>
+            <div class="text-center">
+                <!--Artist-->
+                <p class="h5"><a class="nav-link blue-text" href="{{serverURL}}/artist/{{document['artistName']}}">{{document['artistName']}}</a></p>
+                <!--Title-->
+                <p class="h5">{{document['title']}}</p>
+                <p><hr width="50%" color="blue"></p>
+                <form>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="blue-text" for="staticFormat">Format</label>
+                        <input type="text" class="form-control text-center blue-text" id="staticFormat" placeholder="{{document['formatName']}}&nbsp;({{document['formatQty']}})">               
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="blue-text" for="staticRealized">Année</label>
+                        {% if document['released'] != 0 %}
+                            <input type="text" class="form-control text-center" id="staticRealized" placeholder="{{document['released']}}">
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="blue-text" for="staticLabel">Label</label>
+                        <input type="text" class="form-control text-center" id="staticLabel" placeholder="{{document['labelName']}}">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="blue-text" for="staticCatalog">Catalogue</label>
+                        <input type="text" class="form-control text-center blue-text" id="staticCatalog" placeholder="{{document['labelCatalog']}}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label class="blue-text" for="staticCountry">Pays</label>
+                        <input type="text" class="form-control text-center" id="staticCountry" placeholder="{{document['country']}}">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label class="blue-text" for="staticGenres">Genres</label>
+                        <input type="text" class="form-control text-center" id="staticGenres" placeholder="{{ document['genres']|join(', ')}}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label class="blue-text" for="staticStorage">Rangement</label>
+                        {% for index in range(0, stocksLength) %}
+                            {% if rangement[index].get('name') == document['storage'] %}
+                                <input type="text" class="form-control text-center" id="staticStorage" placeholder="{{rangement[index].get('libelle')}}">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="blue-text" for="staticPlace">Place</label>
+                        <input type="text" class="form-control text-center" id="staticPosition" placeholder="{{document['position']}}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label class="blue-text" for="staticNotes">Notes</label>
+                        <textarea class="form-control rounded-0" id="staticNotes" rows="8">{{document['notes']}}</textarea>
+                    </div>
+                </div>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="col-12 col-md-6 col-lg-6 ">
+            <p class="h5">Titres</p>
+            <div class="table-responsive table-fixed">
+                <table id="pisteTable" class="table-striped table-bordered" cellspacing="8" width="100%">
+                <thead class="blue white-text">
+                    <tr>
+                        <th class="text-center" width="15%">Position</th>
+                        <th class="text-center" width="75%">Titre</th>
+                        <th class="text-center" width="10%">Durée</th>
+                    </tr>
+                </thead>
+                <tbody blue-text>
+                    {% for document in tracksList %}
+                    <tr>
+                        <td width="15%" class="text-center">{{document['position']}}</td>
+                        <td class="blue-text" width="75%">{{document['title']}}</td>
+                        <td align="right" width="10%">{{document['duration']}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>    
+                </table>
+            </div>
+            <p><br /><hr width="50%" color="blue"><br /></p>
+            <p class="h5">Vidéos</p>
+            {% if videosLength > 0 %}
+                {% if videosLength > 5 %}
+                    {% set videosLength = 5 %}
+                {% endif %}
+                <div class="table-responsive table-fixed">
+                    <table class="table-striped table-bordered" cellspacing="8" width="100%">
+                        <thead class="blue white-text">
+                            <tr>
+                                <th width="85%" class="text-center">Title</th>
+                                <th width="15%" class="text-center">Durée</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for index in range(0, videosLength) %}
+                            <tr>
+                                <td width="85%""><a class="nav-link blue-text" href="{{videos[index].get('uri')}}" target="_blanck">{{videos[index].get('title')}}</a></td> 
+                                <!--<td><button type="button" class="btn blue-gradient btn-rounded blue-text" data-toggle="modal" data-target="#modalYT".index>{{videos[index].get('title')}}</button></td>-->
+                                <td width="15%"align="right">{{videos[index].get('duration')}}</td>
+                            </tr>
+                        {% endfor %} 
+                        </tbody>    
+                    </table>
+                </div>
+            {% else %}
+                    <p class="h6"><br />&nbsp;&nbsp;&nbsp;Pas de vidéos disponibles.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    
+        
+    <div class="row">
+        <p><hr width="50%" color="blue"></p>    
+        <div class="col-12">
+            <p class="h5">Crédits</p>    
+            <div class="table-responsive">
+                <table id="extraTable" class="table-striped" cellspacing="0" width="100%">
+                    <thead class="blue white-text text-center">
+                    <tr>
+                        <th width="40%">Rôle</th>
+                        <th width="40%">Name</th>
+                        <th width="20%">Pistes</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for document in extraartists %}
+                    <tr>
+                        <td>{{document['role']}}</td>
+                        <td>{{document['name']}}</td>
+                        <td>{{document['tracks']}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>    
+                </table>
+            </div>
+        </div>
+</div>
+   
+{% endblock %}
+
+
+

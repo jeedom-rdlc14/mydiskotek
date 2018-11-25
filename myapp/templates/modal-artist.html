@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+<body>
+<div class="container"> 
+    <!-- Modal -->
+    <div class="modal fade" id="artistModal" tabindex="-1" role="dialog" data-show="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">FIche Artiste</h5>
+                    <button type="button" class="close" data-dismiss="modal" onClick="javascript:history.go(-1)" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="blue-text" for="modalName">Nom d'artiste</label>
+                                <input type="text" class="form-control" id="name" placeholder="{{artistInfos[0].get('name')}}">
+                               </div>
+                            <div class="form-group col-md-12">
+                                <label class="blue-text" for="modalRealName">Nom réel</label>
+                                <input type="text" class="form-control" id="realname" placeholder="{{artistInfos[0].get('realname')}}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="blue-text" for="modalNotes">Profil</label>
+                                <textarea class="form-control rounded-0" id="notes" rows="8">{{artistInfos[0].get('profile')}}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive table-fixed">
+                            {% set listUrls = artistInfos[0].get('urls') %}
+                            <table class="table-striped " cellspacing="8" width="100%">
+                                <thead class="blue white-text col-xs-12">
+                                    <tr>
+                                        <th width="100%" class="text-center">Liens</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for lien in listUrls %}
+                                    <tr>
+                                        <td><a class="nav-link blue-text" href="{{lien}}" target="_blanck">{{lien}}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <p><hr width="50%" color="blue"></p>
+                    <div class="row">
+                        <a class="btn blue-gradient btn-sm" href="{{artistInfos[0].get('uri')}}" target="_blank" role="button">plus sur Discogs®</a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+Flask
+flask_pymongo
+flask_script
+flask_mail
+flask_login
+flask_wtf
+Jinja2
+MarkupSafe
+pymongo
+wheel
+WTForms
+requests    
+reportlab
+gunicorn

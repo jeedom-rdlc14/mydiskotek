@@ -1,0 +1,11 @@
+Collecting oauth2
+  Downloading https://files.pythonhosted.org/packages/a0/6f/86db603912ecd04109af952c38bc08928886cf0e34c723481fa7db98b4b5/oauth2-1.9.0.post1-py2.py3-none-any.whl
+Collecting httplib2 (from oauth2)
+  Downloading https://files.pythonhosted.org/packages/fd/ce/aa4a385e3e9fd351737fd2b07edaa56e7a730448465aceda6b35086a0d9b/httplib2-0.11.3.tar.gz (215kB)
+Building wheels for collected packages: httplib2
+  Running setup.py bdist_wheel for httplib2: started
+  Running setup.py bdist_wheel for httplib2: finished with status 'done'
+  Stored in directory: /Users/alain/Library/Caches/pip/wheels/1b/9c/9e/1f6fdb21dbb1fe6a99101d697f12cb8c1fa96c1587df69adba
+Successfully built httplib2
+Installing collected packages: httplib2, oauth2
+Successfully installed httplib2-0.11.3 oauth2-1.9.0.post1

@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+
+<div class="container">
+    <<div class="row">
+            <hr width="50%" color="white">
+    </div>
+    {% for compteur in compteurs %}
+    {{ macros.entete(compteur['updated'], 'Tableau de bord', '') }}
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-6">
+            <p class="h5">par Support</p>
+            <canvas id="supportChart" width="350" height="300"></canvas>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+                <p class="h5">par Genre</p>
+            <canvas id="genreChart" width="350" height="300"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <hr width="50%" color="white">  
+    </div>
+    <script src="{{serverURL}}/static/js/Chart.bundle.js"></script>
+
+    <script>
+        var tout = "{{compteur['total']}}";
+        var cd = "{{compteur['CD']}}";
+        var dvd = "{{compteur['DVD']}}";
+        var vinyl = "{{compteur['Vinyl']}}";
+        var apple = "{{compteur['APPLE']}}";
+
+        var ctx = document.getElementById("supportChart").getContext('2d');
+           var myChart = new Chart(ctx, {
+           type: 'bar',
+           data: {
+               labels: ["Tout","Vinyl", "CD", "DVD", "Apple Music"],
+               datasets: [{
+                   label: 'nombre',
+                   //data: [1208, 647, 545, 34, 0],
+                   data: [tout, vinyl, cd, dvd, apple],
+                   backgroundColor: [
+                   'rgba(255, 99, 132, 0.2)',
+                   'rgba(54, 162, 235, 0.2)',
+                   'rgba(255, 206, 86, 0.2)',
+                   'rgba(75, 192, 192, 0.2)',
+                   'rgba(153, 102, 255, 0.2)'
+                   ],
+               borderColor: [
+                   'rgba(255,99,132,1)',
+                   'rgba(54, 162, 235, 1)',
+                   'rgba(255, 206, 86, 1)',
+                   'rgba(75, 192, 192, 1)',
+                   'rgba(153, 102, 255, 1)',
+                   ],
+               borderWidth: 1}]},
+               options: {
+                    scales: {
+                        yAxes: [{
+                    ticks: {
+                   beginAtZero:true,
+                   
+                   }
+                    }]
+                            }
+                        }
+                    });
+    </script>
+    
+    <script>
+        var blues = "{{compteur['Blues']}}";
+        var electronic= "{{compteur['Electronic']}}";
+        var folk = "{{compteur['Folk World Country']}}";
+        var funk = "{{compteur['Funk Soul']}}";
+        var hip = "{{compteur['Hip Hop']}}";
+        var jazz = "{{compteur['Jazz']}}";
+        var latin = "{{compteur['Latin']}}";
+        var pop = "{{compteur['Pop']}}";
+        var reggae = "{{compteur['Reggae']}}";
+        var rock = "{{compteur['Rock']}}";
+    
+        var ctx = document.getElementById("genreChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Blues","Electro", "Folk/World", "Funk/Soul", "Hip Hop", "Jazz", "Latin", "Pop", "Reggae", "Rocks"],
+                datasets: [{
+                    label: 'nombre',
+                    data: [blues,electronic, folk, funk, hip, jazz, latin, pop, reggae, rock],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'],
+                borderWidth: 1}]},
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            }
+        );
+    </script>  
+   
+   <!--
+    <div class="row">
+        <p class="h5">Albums par Support</p>
+    </div>
+    <div class="row text-center">
+        <div class="col-sm table-bordered">
+            <a class="nav-link" href="{{serverURL}}/list">
+            <p><img src="../static/img/label-sans-fond.png" width="75" height="75" class="d-flex align-self-center" alt="Liste complète"></p>
+            <p class="h6 bold">TOUT - {{compteur['total']}}</p></a>
+        </div>
+        <div class="col-sm table-bordered">
+            <a class="nav-link" href="{{serverURL}}/Vinyl">
+            <p><img src="../static/img/vinyl-sans-fond.png" width="75" height="75" class="d-flex align-self-center" alt="Vinyls">
+            <p class="h6 bold">VINYL - {{compteur['Vinyl']}}</p></a>
+        </div>
+        <div class="col-sm table-bordered">
+            <a class="nav-link" href="{{serverURL}}/CD">
+            <p><img src="../static/img/cd-sans-fond.png" width="75" height="75" class="d-flex align-self-center" alt="CD)"></p>
+            <p class="h6 bold">CD - {{compteur['CD']}}</p></a>
+        </div>
+        <div class="col-sm table-bordered">
+            <a class="nav-link" href="{{serverURL}}/DVD">
+               <p><img src="../static/img/label-sans-fond.png" width="75" height="75" class="d-flex align-self-center" alt="DVD"></p>
+            <p class="h6 bold">DVD - {{compteur['DVD']}}</p></a>
+        </div>
+            <div class="col-sm table-bordered">
+            <a class="nav-link" href="{{serverURL}}/APPLE">
+            <p><img src="../static/img/apple.jpeg" width="75" height="75" class="d-flex align-self-center" alt="DEM.APPLE"></p>
+            <p class="h6 bold">Apple MUSIC - {{compteur['APPLE']}}</p></a>
+        </div>
+    </div>
+    -->
+    <!--
+     <div class="row">
+        <p class="h5"><br /> Albums par Genre</p>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="display table table-bordered" cellspacing="0" width="100%">
+                    <thead class="blue text-center white-text">
+                        <tr>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie/Blues">Blues</a></th>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie/Electronic">Electro</a></th>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie/Folk">Folk / World</a></th>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie/Funk">Funk / Soul</a></th>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie/Hiphop">Hip Hop</a></th>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie/Jazz">Jazz</a></th>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie/Latin">Latin</a></th>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie/Pop">Pop</a></th>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie/Reggae">Reggae</a></th>
+                            <th><a class="nav-link" href="{{serverURL}}/categorie}/Rock">Rock</a></th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <tr>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Blues">{{compteur['Blues']}}</a></td>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Electronic">{{compteur['Electronic']}}</a></td>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Folk">{{compteur['Folk World Country']}}</a></td>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Funk">{{compteur['Funk Soul']}}</a></td>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Hiphop">{{compteur['Hip Hop']}}</a></td>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Jazz">{{compteur['Jazz']}}</a></td>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Latin">{{compteur['Latin']}}</a></td>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Pop">{{compteur['Pop']}}</a></td>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Reggae">{{compteur['Reggae']}}</a></td>
+                            <td><a class="nav-link" href="{{serverURL}}/categorie/Rock">{{compteur['Rock']}}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+       </div>                         
+    </div>
+    -->
+   {% endfor %}
+
+  <div class="row">
+        <p class="h5"><br />par Artiste</p>
+    </div>
+    {% for index in range(1, 3) %}
+    <div class="row text-center">
+        {% set index = (loop.index0 * 6) + 1 %}
+        {% for colonne in range(0, 6) %}
+            {% set index = index + colonne %}
+            <div class="col-6 col-md-6 col-lg-2">
+                <a class="h6 nav-link blue-text bold" href="{{serverURL}}/artist/{{compteursArtists[index].get('artistName')}}">{{compteursArtists[index].get('artistName')}}</a>
+                {% if compteursArtists[index].get('release') == 1 %}
+                    <p class="h6">{{compteursArtists[index].get('release')}} album</p>
+                {% else %}
+                    <p class="h6">{{compteursArtists[index].get('release')}} albums</p>
+                {% endif %}
+                {% if compteursArtists[index].get('vinyl') > 0 %}
+                    <p>Vinyl({{compteursArtists[index].get('vinyl')}})
+                {% endif %}
+                {% if compteursArtists[index].get('cd') > 0 %}
+                   -- CD({{compteursArtists[index].get('cd')}})</p>
+                {% endif %}
+                {% if compteursArtists[index].get('dvd') > 0 %}
+                    <p>DVD({{compteursArtists[index].get('dvd')}})
+                {% endif %}
+                {% if compteursArtists[index].get('demat') > 0 %}
+                   -- DEM({{compteursArtists[index].get('demat')}})</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    
+    <div class="row">
+        <p class="h5"><br />Dernières Entrées</p>
+    </div>
+    
+    {% for index in range(0, 2) %}
+    <div class="row text-center">
+        {% set index = loop.index0 * 6 %}
+        {% for colonne in range(0, 6) %}
+            {% set index = index + colonne %}
+            <div class="col-12 col-md-4 col-lg-2">
+            <a class="nav-link" href="{{serverURL}}/album/{{lastAlbums[index].get('id')}}">
+            <img src="{{lastAlbums[index].get('thumb')}}" class="img-fluid z-depth-2" alt="image"></a>
+            <p class="h6">{{lastAlbums[index].get('title')}}
+            <a class="h6 nav-link blue-text bold" href="{{serverURL}}/artist/{{lastAlbums[index].get('artistName')}}">{{lastAlbums[index].get('artistName')}}</a>
+            <p>{{lastAlbums[index].get('formatName')}} </p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

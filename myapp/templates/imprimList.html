@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+<div class="container"><br />
+    
+     {{ macros.boutonsList() }}
+    
+    <p class="h5"><br /> Fichiers disponibles <br /></p>
+    <hr width="50%" color="white">
+         
+    {% for pdfFile in pdfFiles %}
+        <p><a href="{{serverURL}}/{{pdfFile}}" download="{{pdfFile}}"><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i>&nbsp;&nbsp;{{pdfFile}}</a></p>
+    {% endfor %}
+    
+    
+    {% for compteur in countList %}
+        {{ macros.entete(compteur[support], support, 'Albums') }}
+    {% endfor %}
+
+    <!--
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table-striped table-bordered" cellspacing="8" width="100%">
+                <thead class="primary white-text text-center">
+                    <tr>
+                        <th width="21%">Artiste</th>
+                        <th width="45%">Titre</th>
+                        <th width="8%">Année</th>
+                        <th width="8%">Release</th>
+                        <th width="10%">Rangement</th>
+                        <th width="8%">Place</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for album in list %}
+                    <tr>
+                        <td>{% set artist = album['artists'] %}
+                        {{artist[0].get('name')}}</td>
+                        <td>{{album['title']}}</td>
+                        <td class="text-center">{{album['year']}}</td>
+                        <td class="text-center">{{album['id']}}</td>
+                        <td></td>
+                        <td class="text-center"></td>
+                    
+                    </tr>
+                {% endfor %}
+                </tbody>    
+            </table>
+        </div>
+    </div>
+-->
+</div>
+<script>
+        pdfDocument = document.getElementById("pdfFile");
+        pageWidth = document.getElementById("content").offsetWidth;
+        documentWidth = 0.3 * pageWidth;
+        pdfDocument.style.width = documentWidth + "px";
+        pdfDocument.style.height = documentWidth * 1.2 + "px";
+</script> 
+{% endblock %}

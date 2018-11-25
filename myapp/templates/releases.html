@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+{% block content %}
+<div class="container"><br />
+  
+    {% set list = paramsPage['list'] %}
+    <div class="row">
+        <p class="h4 blue-text bold">{{list[0].get('artist')}}
+        <br />
+        {{count}} albums dans <a class="nav-link" href="https://www.discogs.com/fr/" target="_blank"> Discogs®</a>
+        </p>
+    </div>
+
+       
+    {% for index in range(0, paramsPage['pagelength']) %}
+    <div class="row text-center">
+        {% set index = loop.index0 * 5 %}
+        {% for colonne in range(0, 5) %}
+            {% set index = index + colonne %}
+            <div class="col-sm table-bordered card-text">
+                {% if list[index].get('thumb') != 'Vide' %}
+                    {% if list[index].get('thumb') != '' %}
+                        <a class="nav-link" href="{{serverURL}}/album/{{list[index].get('id')}}">
+                        <img src="{{list[index].get('thumb')}}" class="img-fluid z-depth-2" alt="image"></a>
+                    {% endif %}
+                    <p class="h6 nav-link blue-text bold">{{list[index].get('title')}}</p>
+                    <p>{% if (list[index].get('year')) != 0 %}
+                        {{list[index].get('year')}}
+                    {% endif %}
+                      ({{list[index].get('type')}})</p>
+                    {% if (list[index].get('myDisco')) == 'true' %}
+                        <p class="h6">dans ma collection</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>    
+
+{% endblock %}
