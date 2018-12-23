@@ -4,17 +4,20 @@
 # VERSION 1.2.0
 
 # Added
-pour les nouvelles fonctionnalités.
 
 # Changed
-pour les changements aux fonctionnalités préexistantes.
-
+  mdb.css nouvelle version 4.6.0 pro
+  mdb.min.css nouvelle version 4.6.0 pro
+  
+  mdb.js nouvelle version 4.6.0 pro
+  mdb.min.js nouvelle version 4.6.0 pro
+  popper.min.js nouvelle version 2018 pro
+  
 # Deprecated 
-pour les fonctionnalités qui seront bientôt supprimées.
 
 # Removed
 
 # Fixed
-pour les corrections de bugs.
+
 
 # Security
