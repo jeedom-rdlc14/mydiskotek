@@ -1,0 +1,34 @@
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/img/logodiskotek.png? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/js/Chart.bundle.js? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/js/jquery-3.3.1.min.js? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/js/popper.min.js? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/js/bootstrap.min.js? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/js/mdb.min.js? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/js/typeahead.bundle.js? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/font/roboto/Roboto-Light.woff2? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/font/roboto/Roboto-Medium.woff2? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/font/roboto/Roboto-Regular.woff2? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /static/data/json/tracksList.json? 304 NOT MODIFIED
+[2018-Dec-23 06:41] 127.0.0.1 GET http /favicon.ico/? 200 OK
+[2018-Dec-23 08:43] 127.0.0.1 GET http /? 200 OK
+[2018-Dec-23 08:43] 127.0.0.1 GET http /favicon.ico/? 200 OK
+[2018-Dec-23 08:43] 127.0.0.1 GET http /about? 301 MOVED PERMANENTLY
+[2018-Dec-23 08:43] 127.0.0.1 GET http /about/? 200 OK
+[2018-Dec-23 08:43] 127.0.0.1 GET http /static/img/python_logo.png? 200 OK
+[2018-Dec-23 08:43] 127.0.0.1 GET http /static/img/logo-discogs.png? 200 OK
+[2018-Dec-23 08:43] 127.0.0.1 GET http /static/img/mongoDB-logo.png? 200 OK
+[2018-Dec-23 08:43] 127.0.0.1 GET http /static/img/flask.png? 200 OK
+[2018-Dec-23 08:43] 127.0.0.1 GET http /static/img/Raspberry-Pi-3.jpg? 200 OK
+[2018-Dec-23 08:43] 127.0.0.1 GET http /favicon.ico/? 200 OK
+[2018-Dec-23 08:44] 127.0.0.1 GET http /about/? 200 OK
+[2018-Dec-23 08:44] 127.0.0.1 GET http /favicon.ico/? 200 OK
+[2018-Dec-23 08:44] 127.0.0.1 GET http /artists? 200 OK
+[2018-Dec-23 08:44] 127.0.0.1 GET http /favicon.ico/? 200 OK
+[2018-Dec-23 08:44] 127.0.0.1 GET http /about/? 200 OK
+[2018-Dec-23 08:44] 127.0.0.1 GET http /favicon.ico/? 200 OK
+[2018-Dec-23 08:44] 127.0.0.1 GET http /? 200 OK
+[2018-Dec-23 08:44] 127.0.0.1 GET http /favicon.ico/? 200 OK
+[2018-Dec-23 08:45] 127.0.0.1 GET http /about/? 200 OK
+[2018-Dec-23 08:45] 127.0.0.1 GET http /favicon.ico/? 200 OK
+[2018-Dec-23 08:45] 127.0.0.1 GET http /? 200 OK
+[2018-Dec-23 08:45] 127.0.0.1 GET http /favicon.ico/? 200 OK

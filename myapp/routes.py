@@ -98,7 +98,6 @@ def list_albums(artist):
         disks = mongo.db.releases.find({"artists.name": artist}, {"id": 1, "_id": 0, "artists.name": 1, "formats": 1, "thumb": 1, "title": 1, "year": 1}).sort("year", 1)
       
         artistDict = mongo.db.artists.find({"name": artist}).limit(1)
-        #artistDict = mongo.db.ARTISTS_COLLECTION.find({"name": artist}).limit(1)
         albumsList = albumDict(disks)                    
         paramsTemplate = templateParams(albumsList, 1, page_size, '')
     

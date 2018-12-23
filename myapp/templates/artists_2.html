@@ -8,26 +8,22 @@
     </div>
     <p><hr width="50%" color="blue"></p>        
     <div class="form-row">
-        <div class="col12 col-md-6 col-lg-6 text-primary text-center">
-            <div class="form-group col-md-6">
+        <div class="col-12 col-md-6 col-lg-6 text-primary text-center">
+            <div class="form-group">
                 <label class="blue-text" for="name">Nom d'artiste</label>
                 <input type="text" class="form-control" id="name" placeholder="{{artistInfos[0].get('name')}}">
             </div>
-        </div>
-        <div class="col12 col-md-6 col-lg-6 text-primary text-center">
-            <div class="form-group col-md-12">
+            <div class="form-group">
                 <label class="blue-text" for="realName">Nom réel</label>
                 <input type="text" class="form-control" id="realname" placeholder="{{artistInfos[0].get('realname')}}">
             </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 text-primary text-center">
+            <label class="blue-text" for="staticNotes">Notes</label>
+            <textarea class="form-control" rows="10" id="profil">{{artistInfos[0].get('profile')}}</textarea>
         </div>         
     </div>
     
-    <div class="form-row">
-        <div class="col-12 col-md-6 col-lg-6s">
-            <label class="blue-text" for="staticNotes">Notes</label>
-            <textarea class="form-control" rows="10" id="profil">{{artistInfos[0].get('profile')}}</textarea>
-        </div>
-    </div>
     <div class="row">
         {{ macros.ligne() }}
     </div>

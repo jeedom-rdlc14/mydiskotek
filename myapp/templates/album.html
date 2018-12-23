@@ -23,33 +23,35 @@
                 <p><hr width="50%" color="blue"></p>
                 <form>
                 <div class="form-row">
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-6">
                         <label class="blue-text" for="staticFormat">Format</label>
                         <input type="text" class="form-control text-center blue-text" id="staticFormat" placeholder="{{document['formatName']}}&nbsp;({{document['formatQty']}})">               
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-6">
                         <label class="blue-text" for="staticRealized">Année</label>
                         {% if document['released'] != 0 %}
                             <input type="text" class="form-control text-center" id="staticRealized" placeholder="{{document['released']}}">
                         {% endif %}
                     </div>
-                    <div class="form-group col-md-3">
-                        <label class="blue-text" for="staticLabel">Label</label>
-                        <input type="text" class="form-control text-center" id="staticLabel" placeholder="{{document['labelName']}}">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label class="blue-text" for="staticCatalog">Catalogue</label>
-                        <input type="text" class="form-control text-center blue-text" id="staticCatalog" placeholder="{{document['labelCatalog']}}">
-                    </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
+                        <label class="blue-text" for="staticGenres">Genres</label>
+                        <input type="text" class="form-control text-center" id="staticGenres" placeholder="{{ document['genres']|join(', ')}}">
+                    </div>
+                    <div class="form-group col-md-6">
                         <label class="blue-text" for="staticCountry">Pays</label>
                         <input type="text" class="form-control text-center" id="staticCountry" placeholder="{{document['country']}}">
                     </div>
-                    <div class="form-group col-md-8">
-                        <label class="blue-text" for="staticGenres">Genres</label>
-                        <input type="text" class="form-control text-center" id="staticGenres" placeholder="{{ document['genres']|join(', ')}}">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="blue-text" for="staticLabel">Label</label>
+                        <input type="text" class="form-control text-center" id="staticLabel" placeholder="{{document['labelName']}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="blue-text" for="staticCatalog">Catalogue</label>
+                        <input type="text" class="form-control text-center blue-text" id="staticCatalog" placeholder="{{document['labelCatalog']}}">
                     </div>
                 </div>
                 <div class="form-row">

@@ -30,8 +30,8 @@ db = connection[MONGO_DB]
 # Jazz Vinyl
 #disks = db.releases.find({"formats.name": "Vinyl", "genres": "Jazz","storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).limit(4).sort("artists.name", 1)
 #disks = db.releases.find({"formats.name": "Vinyl", "artists.name": "Elton John", "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
-disks = db.releases.find({"formats.name": "CD", "artists.name": "Cassandra Wilson", "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
-place = 11
+disks = db.releases.find({"formats.name": "CD", "artists.name": 'Ella Fitzgerald', "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
+place = 36
 for document in disks:
     release = document['id']
     empl = 'MSGT1C1'
