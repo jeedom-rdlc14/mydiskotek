@@ -85,3 +85,9 @@ jinja2.exceptions.UndefinedError: list object has no element 0
 [2018-12-23 08:45:07 +0100] [27003] [INFO] Listening at: http://127.0.0.1:8000 (27003)
 [2018-12-23 08:45:07 +0100] [27003] [INFO] Using worker: sync
 [2018-12-23 08:45:07 +0100] [27006] [INFO] Booting worker with pid: 27006
+[2018-12-23 09:45:16 +0100] [27003] [INFO] Handling signal: hup
+[2018-12-23 09:45:16 +0100] [27003] [INFO] Hang up: Master
+[2018-12-23 09:45:16 +0100] [27449] [INFO] Booting worker with pid: 27449
+[2018-12-23 14:37:32 +0100] [27449] [INFO] Worker exiting (pid: 27449)
+[2018-12-23 14:37:32 +0100] [27003] [INFO] Handling signal: term
+[2018-12-23 14:37:32 +0100] [27003] [INFO] Shutting down: Master
