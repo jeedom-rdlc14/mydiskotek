@@ -91,3 +91,22 @@ jinja2.exceptions.UndefinedError: list object has no element 0
 [2018-12-23 14:37:32 +0100] [27449] [INFO] Worker exiting (pid: 27449)
 [2018-12-23 14:37:32 +0100] [27003] [INFO] Handling signal: term
 [2018-12-23 14:37:32 +0100] [27003] [INFO] Shutting down: Master
+[2018-12-25 08:22:53 +0100] [6006] [INFO] Starting gunicorn 19.9.0
+[2018-12-25 08:22:53 +0100] [6006] [INFO] Listening at: http://127.0.0.1:8000 (6006)
+[2018-12-25 08:22:53 +0100] [6006] [INFO] Using worker: sync
+[2018-12-25 08:22:53 +0100] [6009] [INFO] Booting worker with pid: 6009
+[2018-12-25 08:24:23 +0100] [6029] [INFO] Starting gunicorn 19.9.0
+[2018-12-25 08:24:23 +0100] [6029] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2018-12-25 08:24:23 +0100] [6029] [ERROR] Retrying in 1 second.
+[2018-12-25 08:24:24 +0100] [6029] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2018-12-25 08:24:24 +0100] [6029] [ERROR] Retrying in 1 second.
+[2018-12-25 08:24:25 +0100] [6029] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2018-12-25 08:24:25 +0100] [6029] [ERROR] Retrying in 1 second.
+[2018-12-25 08:24:26 +0100] [6029] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2018-12-25 08:24:26 +0100] [6029] [ERROR] Retrying in 1 second.
+[2018-12-25 08:24:27 +0100] [6029] [ERROR] Connection in use: ('127.0.0.1', 8000)
+[2018-12-25 08:24:27 +0100] [6029] [ERROR] Retrying in 1 second.
+[2018-12-25 08:24:28 +0100] [6029] [ERROR] Can't connect to ('127.0.0.1', 8000)
+[2018-12-25 08:25:35 +0100] [6006] [INFO] Handling signal: hup
+[2018-12-25 08:25:35 +0100] [6006] [INFO] Hang up: Master
+[2018-12-25 08:25:35 +0100] [6056] [INFO] Booting worker with pid: 6056
