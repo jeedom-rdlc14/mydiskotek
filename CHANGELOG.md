@@ -1,11 +1,11 @@
-# changelog mydiskotek
+# Changelog mydiskotek
 
+## v1.2.0
 
-# v1.2.0
+    ### Added
 
-# Added
+    ### Changed
 
-## Changed
   mdb.css nouvelle version 4.6.0 pro
   mdb.min.css nouvelle version 4.6.0 pro
   
@@ -15,10 +15,14 @@
 
   chart.bundle.js nouvelle version 2.7.3
   
-## Deprecated 
+    ### Database
 
-## Removed
+    mymusicDev
+    mise à jour du 29/12/2018
 
-## Fixed
+## v1.1.12  build :20181223
 
-## Security
+    ### Database
+
+    mymusicDev
+    mise à jour du 29/12/2018

@@ -15,7 +15,7 @@
         </div>
         <div class="col-12 col-md-6 col-lg-6">
                 <p class="h5">par Genre</p>
-            <canvas id="genreChart" width="350" height="300"></canvas>
+            <canvas id="categorieChart" width="350" height="300"></canvas>
         </div>
     </div>
     <div class="row">
@@ -30,41 +30,108 @@
         var vinyl = "{{compteur['Vinyl']}}";
         var apple = "{{compteur['APPLE']}}";
 
-        var ctx = document.getElementById("supportChart").getContext('2d');
-           var myChart = new Chart(ctx, {
-           type: 'bar',
-           data: {
-               labels: ["Tout","Vinyl", "CD", "DVD", "Apple Music"],
-               datasets: [{
-                   label: 'nombre',
-                   //data: [1208, 647, 545, 34, 0],
-                   data: [tout, vinyl, cd, dvd, apple],
-                   backgroundColor: [
-                   'rgba(255, 99, 132, 0.2)',
-                   'rgba(54, 162, 235, 0.2)',
-                   'rgba(255, 206, 86, 0.2)',
-                   'rgba(75, 192, 192, 0.2)',
-                   'rgba(153, 102, 255, 0.2)'
-                   ],
-               borderColor: [
-                   'rgba(255,99,132,1)',
-                   'rgba(54, 162, 235, 1)',
-                   'rgba(255, 206, 86, 1)',
-                   'rgba(75, 192, 192, 1)',
-                   'rgba(153, 102, 255, 1)',
-                   ],
-               borderWidth: 1}]},
-               options: {
-                    scales: {
-                        yAxes: [{
-                    ticks: {
-                   beginAtZero:true,
-                   
-                   }
-                    }]
-                            }
-                        }
+        // Define a plugin to provide data labels
+		Chart.plugins.register({
+			afterDatasetsDraw: function(chart) {
+				var ctx = chart.ctx;
+
+				chart.data.datasets.forEach(function(dataset, i) {
+					var meta = chart.getDatasetMeta(i);
+					if (!meta.hidden) {
+						meta.data.forEach(function(element, index) {
+							// Draw the text in black, with the specified font
+							ctx.fillStyle = 'rgb(0, 0, 0)';
+
+							var fontSize = 12;
+							var fontStyle = 'bold';
+                            var fontFamily = 'Helvetica Neue';
+                            var fontColor = 'rgb(54, 162, 235)';
+							ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+							// Just naively convert to string for now
+							var dataString = dataset.data[index].toString();
+
+							// Make sure alignment settings are correct
+							ctx.textAlign = 'center';
+							ctx.textBaseline = 'middle';
+
+							var padding = 5;
+							var position = element.tooltipPosition();
+							ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+						});
+					}
+				});
+			}
+		});
+
+        var chartDatas = {
+            labels: ["Tout","Vinyl", "CD", "DVD", "Apple Music"],
+            datasets: [
+                {
+                    data: [tout, vinyl, cd, dvd, apple],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255,99,132,1)',
+                    borderWidth: 1,
+                    label: 'nombre par support'
+                }
+            ]
+        };
+
+        var chartOptions = {
+            showTooltips: true,
+            onAnimationComplete: function () {
+                var ctx = this.chart.ctx;
+                ctx.font = this.scale.font;
+                ctx.fillStyle = this.scale.textColor
+                ctx.textAlign = "center";
+                ctx.textBaseline = "bottom";
+
+                this.datasets.forEach(function (dataset) {
+                    dataset.bars.forEach(function (bar) {
+                        ctx.fillText(bar.value, bar.x, bar.y - 5);
                     });
+                })
+            },
+            onClick: supportClickEvent
+        };
+        
+        var ctx = document.getElementById("supportChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartDatas,
+            options: chartOptions
+        });
+
+    function supportClickEvent(evt, array){
+        if(array[0]){ 
+            var index = array[0]._index;
+             switch(index) {
+                case(0):
+                    document.location.href='{{serverURL}}/list/';
+                    break;
+            
+                case(1):
+                    document.location.href='{{serverURL}}/Vinyl/';
+                    break;
+            
+                case(2):
+                    document.location.href='{{serverURL}}/CD/';
+                    break;
+            
+                case(3):
+                    document.location.href='{{serverURL}}/DVD/';
+                    break;
+            
+                case(4):
+                    document.location.href='{{serverURL}}/APPLE/';
+                    break;                                    
+            
+                default:
+                    document.location.href='{{serverURL}}/';
+            }
+        }       
+    }
+
     </script>
     
     <script>
@@ -79,123 +146,115 @@
         var reggae = "{{compteur['Reggae']}}";
         var rock = "{{compteur['Rock']}}";
     
-        var ctx = document.getElementById("genreChart").getContext('2d');
+
+        var categorieDatas = {
+            labels: ["Blues","Electro", "Folk/World", "Funk/Soul", "Hip Hop", "Jazz", "Latin", "Pop", "Reggae", "Rocks"],
+            datasets: [
+                {
+                    data: [blues,electronic, folk, funk, hip, jazz, latin, pop, reggae, rock],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(201, 203, 207, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',    
+                        'rgba(255,99,132,1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(201, 203, 207, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'],
+                    borderWidth: 1,
+                    label: 'nombre par support'
+                }]
+            };
+
+        var categorieOptions = {
+            showTooltips: true,
+            onAnimationComplete: function () {
+                var ctx = this.chart.ctx;
+                ctx.font = this.scale.font;
+                ctx.fillStyle = this.scale.textColor
+                ctx.textAlign = "center";
+                ctx.textBaseline = "bottom";
+
+                this.datasets.forEach(function (dataset) {
+                    dataset.bars.forEach(function (bar) {
+                        ctx.fillText(bar.value, bar.x, bar.y - 5);
+                    });
+                })
+            },
+            onClick: categorieClickEvent
+        };
+        
+        var ctx = document.getElementById("categorieChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
-            data: {
-                labels: ["Blues","Electro", "Folk/World", "Funk/Soul", "Hip Hop", "Jazz", "Latin", "Pop", "Reggae", "Rocks"],
-                datasets: [{
-                    label: 'nombre',
-                    data: [blues,electronic, folk, funk, hip, jazz, latin, pop, reggae, rock],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(201, 203, 207, 0.2)',
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(201, 203, 207, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)'],
-                borderWidth: 1}]},
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
+            data: categorieDatas,
+            options: categorieOptions
+        });
+
+    function categorieClickEvent(evt, array){
+        if(array[0]){ 
+            var index = array[0]._index;
+            switch(index) {
+                case(0):
+                    document.location.href='{{serverURL}}/categorie/Blues/';
+                    break;
+            
+                case(1):
+                    document.location.href='{{serverURL}}/categorie/Electronic/';
+                    break;
+            
+                case(2):
+                    document.location.href='{{serverURL}}/categorie/Folk, World, & Country/';
+                    break;
+            
+                case(3):
+                    document.location.href='{{serverURL}}/categorie/Funk Soul/';
+                    break;
+            
+                case(4):
+                    document.location.href='{{serverURL}}/categorie/Hip Hop/';
+                    break;
+                    
+                case(5):
+                    document.location.href='{{serverURL}}/categorie/Jazz/';
+                    break;
+            
+                case(6):
+                    document.location.href='{{serverURL}}/categorie/Latin/';
+                    break;
+            
+                case(7):
+                    document.location.href='{{serverURL}}/categorie/Pop/';
+                    break;
+            
+                case(8):
+                    document.location.href='{{serverURL}}/categorie/Reggae/';
+                    break;
+            
+                case(9):
+                    document.location.href='{{serverURL}}/categorie/Rock/';
+                    break 
+            
+                default:
+                    document.location.href='{{serverURL}}/';
             }
-        );
-    </script>  
-   
-   <!--
-    <div class="row">
-        <p class="h5">Albums par Support</p>
-    </div>
-    <div class="row text-center">
-        <div class="col-sm table-bordered">
-            <a class="nav-link" href="{{serverURL}}/list">
-            <p><img src="../static/img/label-sans-fond.png" width="75" height="75" class="d-flex align-self-center" alt="Liste complète"></p>
-            <p class="h6 bold">TOUT - {{compteur['total']}}</p></a>
-        </div>
-        <div class="col-sm table-bordered">
-            <a class="nav-link" href="{{serverURL}}/Vinyl">
-            <p><img src="../static/img/vinyl-sans-fond.png" width="75" height="75" class="d-flex align-self-center" alt="Vinyls">
-            <p class="h6 bold">VINYL - {{compteur['Vinyl']}}</p></a>
-        </div>
-        <div class="col-sm table-bordered">
-            <a class="nav-link" href="{{serverURL}}/CD">
-            <p><img src="../static/img/cd-sans-fond.png" width="75" height="75" class="d-flex align-self-center" alt="CD)"></p>
-            <p class="h6 bold">CD - {{compteur['CD']}}</p></a>
-        </div>
-        <div class="col-sm table-bordered">
-            <a class="nav-link" href="{{serverURL}}/DVD">
-               <p><img src="../static/img/label-sans-fond.png" width="75" height="75" class="d-flex align-self-center" alt="DVD"></p>
-            <p class="h6 bold">DVD - {{compteur['DVD']}}</p></a>
-        </div>
-            <div class="col-sm table-bordered">
-            <a class="nav-link" href="{{serverURL}}/APPLE">
-            <p><img src="../static/img/apple.jpeg" width="75" height="75" class="d-flex align-self-center" alt="DEM.APPLE"></p>
-            <p class="h6 bold">Apple MUSIC - {{compteur['APPLE']}}</p></a>
-        </div>
-    </div>
-    -->
-    <!--
-     <div class="row">
-        <p class="h5"><br /> Albums par Genre</p>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table class="display table table-bordered" cellspacing="0" width="100%">
-                    <thead class="blue text-center white-text">
-                        <tr>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie/Blues">Blues</a></th>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie/Electronic">Electro</a></th>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie/Folk">Folk / World</a></th>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie/Funk">Funk / Soul</a></th>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie/Hiphop">Hip Hop</a></th>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie/Jazz">Jazz</a></th>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie/Latin">Latin</a></th>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie/Pop">Pop</a></th>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie/Reggae">Reggae</a></th>
-                            <th><a class="nav-link" href="{{serverURL}}/categorie}/Rock">Rock</a></th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <tr>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Blues">{{compteur['Blues']}}</a></td>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Electronic">{{compteur['Electronic']}}</a></td>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Folk">{{compteur['Folk World Country']}}</a></td>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Funk">{{compteur['Funk Soul']}}</a></td>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Hiphop">{{compteur['Hip Hop']}}</a></td>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Jazz">{{compteur['Jazz']}}</a></td>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Latin">{{compteur['Latin']}}</a></td>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Pop">{{compteur['Pop']}}</a></td>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Reggae">{{compteur['Reggae']}}</a></td>
-                            <td><a class="nav-link" href="{{serverURL}}/categorie/Rock">{{compteur['Rock']}}</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-       </div>                         
-    </div>
-    -->
+        }       
+    }
+  </script>  
+  
    {% endfor %}
 
   <div class="row">

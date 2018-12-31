@@ -110,3 +110,16 @@ jinja2.exceptions.UndefinedError: list object has no element 0
 [2018-12-25 08:25:35 +0100] [6006] [INFO] Handling signal: hup
 [2018-12-25 08:25:35 +0100] [6006] [INFO] Hang up: Master
 [2018-12-25 08:25:35 +0100] [6056] [INFO] Booting worker with pid: 6056
+[2018-12-26 11:42:41 +0100] [6006] [INFO] Handling signal: term
+[2018-12-26 11:42:41 +0100] [6056] [INFO] Worker exiting (pid: 6056)
+[2018-12-26 11:42:42 +0100] [6006] [INFO] Shutting down: Master
+[2018-12-26 11:42:54 +0100] [10112] [INFO] Starting gunicorn 19.9.0
+[2018-12-26 11:42:54 +0100] [10112] [INFO] Listening at: http://127.0.0.1:8000 (10112)
+[2018-12-26 11:42:54 +0100] [10112] [INFO] Using worker: sync
+[2018-12-26 11:42:54 +0100] [10115] [INFO] Booting worker with pid: 10115
+[2018-12-26 11:47:01 +0100] [10112] [INFO] Handling signal: hup
+[2018-12-26 11:47:01 +0100] [10112] [INFO] Hang up: Master
+[2018-12-26 11:47:01 +0100] [10142] [INFO] Booting worker with pid: 10142
+[2018-12-31 11:00:23 +0100] [10112] [CRITICAL] WORKER TIMEOUT (pid:10142)
+[2018-12-31 11:00:23 +0100] [10142] [INFO] Worker exiting (pid: 10142)
+[2018-12-31 11:00:23 +0100] [29571] [INFO] Booting worker with pid: 29571

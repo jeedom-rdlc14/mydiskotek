@@ -17,6 +17,10 @@
                 <label class="blue-text" for="realName">Nom réel</label>
                 <input type="text" class="form-control" id="realname" placeholder="{{artistInfos[0].get('realname')}}">
             </div>
+            <p><br /></p>
+            <div class="text-center">
+                <a class="btn blue-gradient btn-sm" href="{{artistInfos[0].get('uri')}}" target="_blank" role="button">plus sur Discogs®</a>
+            </div>
         </div>
         <div class="col-12 col-md-6 col-lg-6 text-primary text-center">
             <label class="blue-text" for="staticNotes">Notes</label>
@@ -111,14 +115,6 @@
             {% endif %}    
         </div>
     </div>
-    <p><hr width="50%" color="blue"></p>
-    <div class="row">
-        <div class="col-12 col-md-6 col-lg-6 text-center">
-            <!-- <a class="btn blue-gradient btn-sm" href="{{serverURL}}/artist/{{artistInfos[0].get('id')}}/releases" role="button">plus sur Discogs®</a> -->
-            <a class="btn blue-gradient btn-sm" href="{{artistInfos[0].get('uri')}}" target="_blank" role="button">plus sur Discogs®</a>
-        </div>
-    </div>
-     
 </div>
 
 
