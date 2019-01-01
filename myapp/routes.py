@@ -518,31 +518,6 @@ def about():
     template_context = dict(version=VERSION, build=BUILD)
     return render_template('about.html', **template_context)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    message = ''
-    
-    return render_template('register.html', message=message)
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():  
-    form = LoginForm()
-    if request.method == 'POST' and form.validate_on_submit():
-        user = mongo.db.users.find_one({"_id": form.username.data})
-        if user and User.validate_login(user['password'], form.password.data):
-            user_obj = User(user['_id'])
-            login_user(user_obj)
-            flash("Identication réussie", category='success')
-            return redirect(request.args.get("next") or url_for("writePost"))
-        flash("Echec de l'identification. Vérifiez vos nom d'utilisateur et mot de passe!", category='error')
-    return render_template('login.html', title='Connectez vous !', form=form)
-
-def load_user(username):
-    u = mongo.db.users.find_one({"_id": username})
-    if not u:
-        return None
-    return User(u['_id'])
-
 ######################
 #                    #
 #  gestion erreurs   #
@@ -553,5 +528,46 @@ def load_user(username):
 def not_found(error):
     return render_template('404.html'), 404
 
+###########
+#         #
+#  admin  #
+#         #
+###########
 
+@app.route('/admin', methods=['GET'])
+@app.route('/admin/', methods=['GET'])
+def admin():
+    #app.logger.debug('route /')
+    compteursGen = mongo.db.compteursGen.find()
+    compteursArt = mongo.db.compteursArt.find().sort("release", DESCENDING).limit(15)
+    
+    disks = mongo.db.releases.find().sort("dateAdded", -1).limit(12)
+    lastAlbums = albumDict(disks)
+        
+    template_context = dict(compteurs=compteursGen, compteursArtists=compteursArt, lastAlbums=lastAlbums, version=VERSION, build=BUILD) 
+    return render_template('admin/index.html', **template_context)
 
+@app.route('/admin/register', methods=['GET', 'POST'])
+def register():
+    message = ''
+    
+    return render_template('admin/register.html', message=message)
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def login():  
+    form = LoginForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        user = mongo.db.users.find_one({"_id": form.username.data})
+        if user and User.validate_login(user['password'], form.password.data):
+            user_obj = User(user['_id'])
+            login_user(user_obj)
+            flash("Identication réussie", category='success')
+            return redirect(request.args.get("next") or url_for("writePost"))
+        flash("Echec de l'identification. Vérifiez vos nom d'utilisateur et mot de passe!", category='error')
+    return render_template('admin/login.html', title='Connectez vous !', form=form)
+
+def load_user(username):
+    u = mongo.db.users.find_one({"_id": username})
+    if not u:
+        return None
+    return User(u['_id'])

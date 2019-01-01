@@ -123,3 +123,6 @@ jinja2.exceptions.UndefinedError: list object has no element 0
 [2018-12-31 11:00:23 +0100] [10112] [CRITICAL] WORKER TIMEOUT (pid:10142)
 [2018-12-31 11:00:23 +0100] [10142] [INFO] Worker exiting (pid: 10142)
 [2018-12-31 11:00:23 +0100] [29571] [INFO] Booting worker with pid: 29571
+[2019-01-01 11:22:44 +0100] [10112] [INFO] Handling signal: term
+[2019-01-01 11:22:44 +0100] [29571] [INFO] Worker exiting (pid: 29571)
+[2019-01-01 11:22:44 +0100] [10112] [INFO] Shutting down: Master
