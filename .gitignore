@@ -1,0 +1,8 @@
+log/mydiskotek.log
+log/mydiskotek.log.1
+log/mydiskotek.log.2
+log/mydiskotek.log.3
+log/mydiskotek_access.log
+log/mydiskotek_error.log
+myapp/__pycache__/__init__.cpython-36.pyc
+myapp/__pycache__/routes.cpython-36.pyc
