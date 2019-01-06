@@ -24,7 +24,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 VERSION = 'v1.1.12'
 BUILD = '20181223'
 
-ARTISTS_COLLECTION = 'artists2'
+ARTISTS_COLLECTION = 'artists'
 RELEASES_COLLECTION = 'releases'
 USERS_COLLECTION = 'users'
 

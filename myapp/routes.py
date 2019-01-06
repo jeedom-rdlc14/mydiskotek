@@ -10,7 +10,7 @@ Created on 12|04
 @author: Rdlc_Dev(Alain)
 """
 
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, login_required
 from myapp import mongo, app
 from pymongo import DESCENDING, ASCENDING
@@ -534,18 +534,15 @@ def not_found(error):
 #         #
 ###########
 
-@app.route('/admin', methods=['GET'])
-@app.route('/admin/', methods=['GET'])
+@app.route('/admin')
+@app.route('/admin/')
 def admin():
     #app.logger.debug('route /')
-    compteursGen = mongo.db.compteursGen.find()
-    compteursArt = mongo.db.compteursArt.find().sort("release", DESCENDING).limit(15)
-    
-    disks = mongo.db.releases.find().sort("dateAdded", -1).limit(12)
-    lastAlbums = albumDict(disks)
-        
-    template_context = dict(compteurs=compteursGen, compteursArtists=compteursArt, lastAlbums=lastAlbums, version=VERSION, build=BUILD) 
-    return render_template('admin/index.html', **template_context)
+    if not session.get('logged_in'):
+        template_context = dict(version=VERSION, build=BUILD) 
+        return render_template('admin/login.html', **template_context)
+    else:
+        return "Bonjour Alain!"
 
 @app.route('/admin/register', methods=['GET', 'POST'])
 def register():
@@ -553,6 +550,7 @@ def register():
     
     return render_template('admin/register.html', message=message)
 
+'''
 @app.route('/admin/login', methods=['GET', 'POST'])
 def login():  
     form = LoginForm()
@@ -565,6 +563,17 @@ def login():
             return redirect(request.args.get("next") or url_for("writePost"))
         flash("Echec de l'identification. Vérifiez vos nom d'utilisateur et mot de passe!", category='error')
     return render_template('admin/login.html', title='Connectez vous !', form=form)
+'''
+
+@app.route('/admin/login', methods=['POST'])
+def do_admin_login():
+    if request.form['password'] == 'password' and request.form['username'] == 'admin':
+        session['logged_in'] = True
+    else:
+        flash("Echec de l'identification. Vérifiez vos nom d'utilisateur et mot de passe!", category='error')
+    
+    return admin()
+
 
 def load_user(username):
     u = mongo.db.users.find_one({"_id": username})

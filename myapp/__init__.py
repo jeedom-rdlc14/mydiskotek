@@ -75,7 +75,7 @@ from . import routes
 
 logger = logging.getLogger('whatever')
 handler = logging.StreamHandler()
-file_handler = RotatingFileHandler('log/mydiskotek.log', maxBytes=10000, backupCount=3)
+file_handler = RotatingFileHandler('/var/log/supervisor/mydiskotek.log', maxBytes=10000, backupCount=3)
 #file_handler.setFormatter(Formatter('%(asctime)s %(levelname)s: %(message)s ' '[in %(pathname)s:%(lineno)d]'))
 #handler.setFormatter(Formatter('%(asctime)s %(levelname)s: %(message)s ' '[in %(pathname)s:%(lineno)d]'))
 logger.addHandler(file_handler)

@@ -16,22 +16,23 @@
           <div class="md-form mb-5">
             <i class="fas fa-envelope prefix grey-text"></i>
             <input type="email" id="login-email" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="defaultForm-email">Courriel</label>
+            <label data-error="valide" data-success="right" for="defaultForm-email">Courriel</label>
           </div>
   
           <div class="md-form mb-4">
             <i class="fas fa-lock prefix grey-text"></i>
             <input type="password" id="login-passwd" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="defaultForm-pass">Mot de passe</label>
+            <label data-error="valide" data-success="right" for="defaultForm-pass">Mot de passe</label>
           </div>
   
         </div>
         <div class="modal-footer d-flex justify-content-center">
-            <button type="button" name="validList" onclick="location.href='{{serverURL}}/admin/login'" class="btn blue-gradient" data-toggle="tooltip" data-placement="top" ><i class="fa fa-thumbs-o-up"></i></button>
+            <button type="submit" class="btn blue-gradient" data-toggle="tooltip"><i class="fa fa-thumbs-o-up"></i></button>
        
         </div>
       </div>
     </div>
   </div>
 </body>
+
 {% endblock %}
