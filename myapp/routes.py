@@ -605,6 +605,17 @@ def do_admin_login():
     
     return admin()
 
+@app.route('/admin/stockage/<rangement>/<support>', methods=['GET'])
+def manageStorage(empl, support):
+    releasesIn = mongo.db.releases.find({"storage.nom": empl},{"thumb": 1, "artists.name": 1, "_id": 0, "title": 1, "genres": 1 , "year": 1, "id": 1, "storage.nom": 1, "storage.position": 1}).sort("storage.position", 1)
+    nbIn = len(releasesIn)
+
+    releasesOut = db.releases.find({"formats.name": support, "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
+    nbOut = len(releasesOut)
+
+    template_context = dict(list=listInfosDisk, rangement=rangement, compteur=countList, constRangement=constRangement, empl=listRangement, const=listConstRangement, nbEmpl=len(listRangement), color=color, support=support, version=VERSION)
+    return render_template('admin/manage_storage.html', **template_context )
+
 
 def load_user(username):
     u = mongo.db.users.find_one({"_id": username})
