@@ -12984,6 +12984,15 @@
         "track": "Come"
     },
     {
+        "track": "Come (Extended Version)"
+    },
+    {
+        "track": "Come (Remix Femi Kuti)"
+    },
+    {
+        "track": "Dynabeat"
+    },
+    {
         "track": "Heads Up"
     },
     {
@@ -12999,28 +13008,19 @@
         "track": "Makeba"
     },
     {
+        "track": "Makeba (Dirty Ridin' Remix)"
+    },
+    {
         "track": "Mr Johnson"
     },
     {
         "track": "So Peaceful"
     },
     {
-        "track": "You Can Blame Me"
-    },
-    {
-        "track": "Come (Extended Version)"
-    },
-    {
-        "track": "Come (Remix Femi Kuti)"
-    },
-    {
-        "track": "Dynabeat"
-    },
-    {
-        "track": "Makeba (Dirty Ridin' Remix)"
-    },
-    {
         "track": "Son Of  A Sun"
+    },
+    {
+        "track": "You Can Blame Me"
     },
     {
         "track": "Anything"
@@ -28116,39 +28116,6 @@
         "track": "Space Lady"
     },
     {
-        "track": "Everybody Needs Somebody To Love"
-    },
-    {
-        "track": "Gimme Some Lovin'"
-    },
-    {
-        "track": "Jailhouse Rock"
-    },
-    {
-        "track": "Minnie The Moocher"
-    },
-    {
-        "track": "Peter Gunn Theme"
-    },
-    {
-        "track": "Shake A Tail Feather"
-    },
-    {
-        "track": "She Caught The Katy"
-    },
-    {
-        "track": "Sweet Home Chicago"
-    },
-    {
-        "track": "The Old Landmark"
-    },
-    {
-        "track": "Theme From Rawhide"
-    },
-    {
-        "track": "Think"
-    },
-    {
         "track": "\"B\" Movie Box Car Blues"
     },
     {
@@ -28182,7 +28149,37 @@
         "track": "Soul Man"
     },
     {
+        "track": "Everybody Needs Somebody To Love"
+    },
+    {
+        "track": "Gimme Some Lovin'"
+    },
+    {
+        "track": "Jailhouse Rock"
+    },
+    {
+        "track": "Minnie The Moocher"
+    },
+    {
+        "track": "Peter Gunn Theme"
+    },
+    {
         "track": "Shake A Tailfeather"
+    },
+    {
+        "track": "She Caught The Katy"
+    },
+    {
+        "track": "Sweet Home Chicago"
+    },
+    {
+        "track": "The Old Landmark"
+    },
+    {
+        "track": "Theme From Rawhide"
+    },
+    {
+        "track": "Think"
     },
     {
         "track": "Atom Tan"
@@ -39901,5 +39898,80 @@
     },
     {
         "track": "Mind"
+    },
+    {
+        "track": "Je Me D\u00e9masque"
+    },
+    {
+        "track": "La Bonne \u00c9toile"
+    },
+    {
+        "track": "La Corde Sensible"
+    },
+    {
+        "track": "Le Radeau"
+    },
+    {
+        "track": "Ma M\u00e9lodie"
+    },
+    {
+        "track": "Mon \u00c9go"
+    },
+    {
+        "track": "Peau De Fleur"
+    },
+    {
+        "track": "Psyko Bug"
+    },
+    {
+        "track": "Quand Je Vais Chez Elle"
+    },
+    {
+        "track": "Qui De Nous Deux"
+    },
+    {
+        "track": "Sous Ta Peau"
+    },
+    {
+        "track": "Ton \u00c9cho"
+    },
+    {
+        "track": "\u00c0 Tes Souhaits"
+    },
+    {
+        "track": "Amalia"
+    },
+    {
+        "track": "Au Cin\u00e9ma"
+    },
+    {
+        "track": "C'est Encore Long, L'Enfance ?"
+    },
+    {
+        "track": "Ce Baiser"
+    },
+    {
+        "track": "Celui Qui"
+    },
+    {
+        "track": "La Vie, La Vie, La Vie"
+    },
+    {
+        "track": "La Vieille Dame Et Le Banc"
+    },
+    {
+        "track": "Le Petit Pr\u00e9f\u00e9r\u00e9"
+    },
+    {
+        "track": "Petit J\u00e9sus"
+    },
+    {
+        "track": "Populaire"
+    },
+    {
+        "track": "Striptease"
+    },
+    {
+        "track": "Trucs Inutiles"
     }
 ]

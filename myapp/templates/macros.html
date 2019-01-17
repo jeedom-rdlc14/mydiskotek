@@ -157,9 +157,16 @@
 {% macro stockage() %}
 <div class="row">
     <form class="form-inline" id="listEmplForm" action="#" method="post">
-    <div class="col-11">
-        
-        <div class="custom-control custom-radio custom-control-inline">
+        <div class="row">
+            <div class="col-10">
+                <p class="h5">Stockage des albums</p><br />
+            </div>
+            <div class="col-2">
+                <button type="button" name="stockage" onclick="document.location.href='{{serverURL}}/stockage/';" class="btn blue-gradient btn-sm" data-toggle="tooltip" data-placement="top" title="Affiche tous les emplacements de stockage">Retour&nbsp;<i class="fa fa-thumbs-up ml-2" aria-hidden="true"></i></i></button>
+            </div>
+        </div>
+    
+         <div class="custom-control custom-radio custom-control-inline">
             <input type="radio" id="emplRadio1" name="emplRadio" class="custom-control-input" value="Tout" checked>
             <label class="custom-control-label" for="emplRadio1">Tout&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <!-- <label class="custom-control-label h6 bold" for="emplRadio1"> | SALON |</label> -->
@@ -194,10 +201,7 @@
     
     <div class="col-1">
         <button type="button" name="validList" onclick="displayStockage();" class="btn blue-gradient btn-sm" data-toggle="tooltip" data-placement="top" title="Affiche les albums triées par semplacement de rangement"><i class="fa fa-thumbs-o-up"></i></button>
-        
-      <!--  <button type="button" name="imprimList" onclick="printStockage();" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Imprime les albums triées par semplacement de rangement"><i class="fa fa-print"></i>&nbsp;Imprimer</button> -->
-        
-     </div>
+    </div>
     </form>
 </div>
 

@@ -29,13 +29,13 @@ db = connection[MONGO_DB]
 # Stockage des albums 
 #disks = db.releases.find({"formats.name": "Vinyl", "genres": "Jazz","storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).limit(4).sort("artists.name", 1)
 #disks = db.releases.find({"formats.name": "Vinyl", "artists.name": "Elton John", "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
-#disks = db.releases.find({"formats.name": "CD", "title": 'Chanchullo', "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
-disks = db.releases.find({"formats.name": "CD", "artists.name": 'Lionel Suarez', "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
+#disks = db.releases.find({"formats.name": "CD", "title": 'Monsieur Gainsbourg Revisited', "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
+disks = db.releases.find({"formats.name": "CD", "artists.name": "-M-", "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
 
-place = 49
+place = 7
 for document in disks:
     release = document['id']
-    empl = 'MSGT1C3'
+    empl = 'MSGT2C4'
     title=document['title']        
     
     count = db.storage.find({'nom': empl, 'position': place}).count()

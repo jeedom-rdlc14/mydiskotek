@@ -6,15 +6,49 @@
         {{ macros.ligne() }}
     </div>
   
-    {{ macros.stockage() }}
-
     <div class="row">
-        <br /> <p class="h5">Stockage des albums</p><br />
+        <div class="col-9">
+            <p class="h5">Stockage des albums</p><br />
+        </div>
+        <div class="col-3">
+                <button type="button" name="stockage" onclick="document.location.href='{{serverURL}}/stockage/';" class="btn blue-gradient btn-sm" data-toggle="tooltip" data-placement="top" title="Affiche tous les emplacements de stockage">Retour&nbsp;<i class="fa fa-thumbs-up ml-2" aria-hidden="true"></i></i></button>
+        </div>
     </div>
-    
+    <div class="row">
+        <p class="h6">{{constRangement}}<br /></p>
+    </div>
+    {% if rangement in ['MSGT1', 'MSGT2', 'MSGT3'] %}
+    <div class="row">
+        {% for n in range(0, nbEmpl) %}
+            <div class="col-2">
+                <table class="table-responsive table-bordered" >
+                    <thead class="blue white-text text-center">
+                        <tr>
+                            <th>{{const[n]}} - {{compteur[n]}} {{support}}</th>
+                        </tr>
+                    </thead>    
+                    <tbody>
+                        {% set albums = list[n] %}
+                        {% for i in range(0, compteur[n]) %}
+                            <tr>
+                                {% set genre = albums[i].get('genres') %}
+                                {% if genre[0] in color %}
+                                    {% set colorDisk = color[genre[0]] %}
+                                {% else %}
+                                    {% set colorDisk = '/static/img/vinyl-h-violet.jpg' %}
+                                {% endif %}
+                                <td class="text-center"><a href="{{serverURL}}/album/{{albums[i].get('id')}}"><img src="{{colorDisk}}" data-toggle="tooltip" title="{{albums[i].get('position')}} -- {{albums[i].get('artistName')}} -- {{albums[i].get('title')}}"></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>    
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
     {% for n in range(0, nbEmpl) %}
     <div class="row">
-        <table class="table-responsive" width="100%">
+        <table class="table-responsive table-bordered" width="100%">
             <thead class="blue white-text text-center">
                 <tr>
                     <th>{{const[n]}} --- {{compteur[n]}} {{support}}</th>
@@ -38,5 +72,6 @@
         </table>
     </div>
     {% endfor %}
+    {% endif %}
   
 {% endblock %}

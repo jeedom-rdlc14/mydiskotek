@@ -6,15 +6,15 @@ Created on Mon Apr 30 18:41:04 2018
 @author: alain
 """
 
-from pymongo import MongoClient, DESCENDING
+from pymongo import MongoClient
 import datetime
 
-
+'''
 def artistsList():
-    jsonf = open('artistsList.jsn','w') 
-    data = json.dumps([r for r in csv_reader])
+    jsonf = open('artistsList.json','w') 
+    data = jsonf.dumps([r for r in csv_reader])
     jsonf.write(data)
-
+'''
 
 def fctSortDict(value):
     return value['release']

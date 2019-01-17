@@ -450,30 +450,61 @@ def storageDetail(rangement):
     countList = []
     listRangement = []
     #listIMgBarre = ["/static/img/vinyl-tranche-vert.jpg","/static/img/vinyl-tranche-orange.jpg","/static/img/vinyl-tranche-jaune.jpg","/static/img/vinyl-tranche-violet.jpg","/static/img/vinyl-tranche-rouge.jpg","/static/img/vinyl-tranche-noir.jpg","/static/img/vinyl-tranche-vert.jpg","/static/img/vinyl-tranche-orange.jpg"]
-    support ='Vinyls'
+    support = 'Vinyls'
+    color = const.dictIMgBarre
     
-    if rangement == 'MSGE':
-        listRangement = ['MSGEH1','MSGEH2','MSGEH3','MSGEH4','MSGEB1','MSGEB2','MSGEB3','MSGEB4']
-        listConstRangement = [const.MSGEH1,const.MSGEH2,const.MSGEH3,const.MSGEH4,const.MSGEB1,const.MSGEB2,const.MSGEB3,const.MSGEB4]
+    if rangement == 'MSGEH':
+        constRangement = const.MSGE + " : " + const.MSGEH
+        listRangement = ['MSGEH1','MSGEH2','MSGEH3','MSGEH4']
+        listConstRangement = [const.MSGEH1,const.MSGEH2,const.MSGEH3,const.MSGEH4]
     
-    elif rangement == 'MSGT':
+    elif rangement == 'MSGEB':
+        constRangement = const.MSGE + " : " + const.MSGEB
+        listRangement = ['MSGEB1','MSGEB2','MSGEB3','MSGEB4']
+        listConstRangement = [const.MSGEB1,const.MSGEB2,const.MSGEB3,const.MSGEB4]
+    
+    elif rangement == 'MSGTB':
+        constRangement = const.MSGTB
         listRangement = ['MSGTB1','MSGTB2','MSGTB3']
         listConstRangement = [const.MSGTB1,const.MSGTB2,const.MSGTB3]
         support = 'DVD'
     
-    elif rangement == 'MSGTM':
-        listRangement = ['MSGT1C1','MSGT1C2','MSGT1C3','MSGT1C4','MSGT1C5', 'MSGT2C1','MSGT2C2','MSGT2C3','MSGT2C4','MSGT2C5', 'MSGT3C1','MSGT3C2','MSGT3C3','MSGT3C4','MSGT3C5']
-        listConstRangement = [const.MSGT1C1,const.MSGT1C2,const.MSGT1C3,const.MSGT1C4,const.MSGT1C5,const.MSGT2C1,const.MSGT2C2,const.MSGT2C3,const.MSGT2C4,const.MSGT2C5,const.MSGT3C1,const.MSGT3C2,const.MSGT3C3,const.MSGT3C4,const.MSGT3C5]
+    elif rangement == 'MSGT1':
+        listRangement = ['MSGT1C1','MSGT1C2','MSGT1C3','MSGT1C4','MSGT1C5']
+        constRangement = const.MSGTM + " : " + const.MSGT1
+        listConstRangement = [const.MSGT1C1,const.MSGT1C2,const.MSGT1C3,const.MSGT1C4,const.MSGT1C5]
+        color = const.dictIMgHorizontal
+        support = 'CD'
+
+    elif rangement == 'MSGT2':
+        constRangement = const.MSGTM + " : " + const.MSGT2
+        listRangement = ['MSGT2C1','MSGT2C2','MSGT2C3','MSGT2C4','MSGT2C5']
+        listConstRangement = [const.MSGT2C1,const.MSGT2C2,const.MSGT2C3,const.MSGT2C4,const.MSGT2C5]
+        color = const.dictIMgHorizontal
         support = 'CD'
     
-    elif rangement == 'MSDT':
+    elif rangement == 'MSGT3':
+        constRangement = const.MSGTM + " : " + const.MSGT3
+        listRangement = ['MSGT3C1','MSGT3C2','MSGT3C3','MSGT3C4','MSGT3C5']
+        listConstRangement = [const.MSGT3C1,const.MSGT3C2,const.MSGT3C3,const.MSGT3C4,const.MSGT3C5]
+        color = const.dictIMgHorizontal
+        support = 'CD'
+
+    elif rangement == 'MSDTB':
+        constRangement = const.MSDTB
         listRangement = ['MSDTC1','MSDTC2','MSDTC3','MSDTC4','MSDTC5']   
         listConstRangement = [const.MSDTC1,const.MSDTC2,const.MSDTC3,const.MSDTC4,const.MSDTC5]
         
     elif rangement == 'MEAE1':
-        listRangement = ['AEE11','AEE12','AEE13', 'AEE21','AEE22','AEE23']
-        listConstRangement = [const.AEE11,const.AEE12,const.AEE13,const.AEE21,const.AEE22,const.AEE23]
+        constRangement = const.MEAE + " : " + const.MEAE1
+        listRangement = ['AEE11','AEE12','AEE13']
+        listConstRangement = [const.AEE11,const.AEE12,const.AEE13]
 
+    elif rangement == 'MEAE2':
+        constRangement = const.MEAE +  " : " + const.MEAE2
+        listRangement = ['AEE21','AEE22','AEE23']
+        listConstRangement = [const.AEE21,const.AEE22,const.AEE23]
+    
     else:
         listRangement = []
 
@@ -509,7 +540,7 @@ def storageDetail(rangement):
     
         listInfosDisk.append(listAlbums)
 
-    template_context = dict(list=listInfosDisk, compteur=countList, rangement=rangement, empl=listRangement, const=listConstRangement, nbEmpl=len(listRangement), color=const.dictIMgBarre, support=support, version=VERSION)
+    template_context = dict(list=listInfosDisk, rangement=rangement, compteur=countList, constRangement=constRangement, empl=listRangement, const=listConstRangement, nbEmpl=len(listRangement), color=color, support=support, version=VERSION)
     return render_template('detail_stockage.html', **template_context )
     
 @app.route('/about/', methods=['GET'])

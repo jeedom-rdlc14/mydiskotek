@@ -21,8 +21,8 @@ APP_DIR = os.path.abspath(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 
-VERSION = 'v1.1.12'
-BUILD = '20181223'
+VERSION = 'v1.2.0'
+BUILD = '20190113'
 
 ARTISTS_COLLECTION = 'artists'
 RELEASES_COLLECTION = 'releases'

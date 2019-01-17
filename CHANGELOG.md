@@ -18,7 +18,7 @@
     ### Database
 
     mymusicDev
-    mise à jour du 29/12/2018
+    mise à jour du 12/01/2019
 
 ## v1.1.12  build :20181223
 
