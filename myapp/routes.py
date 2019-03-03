@@ -9,12 +9,11 @@ Created on 12|04
 
 @author: Rdlc_Dev(Alain)
 """
-
-from flask import render_template, flash, redirect, url_for, request, session
-from flask_login import login_user, logout_user, login_required
-from myapp import mongo, app
+from flask import render_template, flash, redirect, url_for, request
+from flask_login import login_user, logout_user, login_required, current_user
+from myapp import mongo, app, lm
 from pymongo import DESCENDING, ASCENDING
-from config import APP_DIR, VERSION, BUILD, ARTISTS_COLLECTION, RELEASES_COLLECTION
+from config import APP_DIR, VERSION, BUILD, DB_NAME, ARTISTS_COLLECTION, RELEASES_COLLECTION
 import glob
 from myapp import const
 
@@ -52,7 +51,6 @@ def index():
 @app.route('/list/', methods=['GET'])
 @app.route('/list/<int:page_num>', methods=['GET'])
 def list(page_num=1):
-    
     count_total = mongo.db.releases.count({})
     page_size = 60
     
@@ -68,7 +66,7 @@ def list(page_num=1):
 @app.route('/artists/<int:page_num>', methods=['GET'])
 def list_artists(page_num=1):
     page_size = 60
-        
+       
     listArtists = mongo.db.releases.distinct("artists.name")
     count_total = len(listArtists)
         
@@ -95,8 +93,8 @@ def list_albums(artist):
     page_size = 60
     
     if artist != 'Various':
-        disks = mongo.db.releases.find({"artists.name": artist}, {"id": 1, "_id": 0, "artists.name": 1, "formats": 1, "thumb": 1, "title": 1, "year": 1}).sort("year", 1)
-      
+        #disks = mongo.db.releases.find({"artists.name": artist}, {"id": 1, "_id": 0, "artists.name": 1, "formats": 1, "thumb": 1, "title": 1, "year": 1}).sort("year", 1)
+        disks = mongo.db.releases.find({"artists.name": artist}).sort("year", 1)  
         artistDict = mongo.db.artists.find({"name": artist}).limit(1)
         albumsList = albumDict(disks)                    
         paramsTemplate = templateParams(albumsList, 1, page_size, '')
@@ -161,8 +159,7 @@ def discographie(artistId):
     nbItems = 0
     releasesList = []
     myDisco = "false"
-      
-    
+        
     try:
         url = "https://api.discogs.com/artists/" + str(artistId) + "/releases"
         response = requests.get(url)
@@ -287,7 +284,6 @@ def album(release):
 
 @app.route('/title/<title>', methods=['GET'])
 def albumByTitle(title):
-    
     disk = mongo.db.releases.find({"title":title})
     listInfosDisk = infosDisk(disk)
     videosLength = len(listInfosDisk[4])
@@ -333,6 +329,7 @@ def support(support, page_num=1):
 @app.route('/categorie/<categorie>/<int:page_num>', methods=['GET'])
 def categorylist(categorie, page_num=1):
     #app.logger.debug('/categorie')
+    
     page_size = 60
     urlTag = categorie
     affiche = categorie
@@ -362,7 +359,7 @@ def categorylist(categorie, page_num=1):
 @app.route('/list/<support>/<categorie>/<int:page_num>', methods=['GET'])
 def listImprim(support, categorie, page_num=1):
     page_size = 60
-    
+    logged = connected()
     if categorie == 'Funk Soul':   
         categorie = 'Funk / Soul'
         
@@ -379,7 +376,7 @@ def listImprim(support, categorie, page_num=1):
 @app.route('/imprim/<support>/<categorie>', methods=['GET'])
 @app.route('/imprim/<support>/<categorie>/', methods=['GET'])
 def printCollections(support, categorie):
-    
+    logged = connected()
     if categorie == 'Funk Soul':   
         categorie = 'Funk / Soul'
         
@@ -411,7 +408,7 @@ def printCollections(support, categorie):
     #pdfListFiles = listdir(APP_DIR+'/myapp/static/data/pdf/')
     pdfListFiles = glob.glob(path.basename(APP_DIR + '/myapp/static/data/pdf/*.pdf'))
 
-    template_context = dict(list=disks, countList=compteursGen, support=libelle, pdfFiles=pdfListFiles, file2Load=filename, version=VERSION)
+    template_context = dict(list=disks, countList=compteursGen, support=libelle, pdfFiles=pdfListFiles, file2Load=filename, version=VERSION, logged=logged)
     return render_template('imprimList.html', **template_context )       
 '''
 
@@ -421,7 +418,7 @@ def storage():
     countList = []
     countRange = []
     compteursGen = mongo.db.compteursGen.find()
-
+    
     for support in ['Vinyl','CD','DVD']:
         nonClasse = mongo.db.releases.find({"formats.name":support, "storage.nom": "", "storage.position":0}).count()
         compteur = {
@@ -450,7 +447,7 @@ def storageDetail(rangement):
     countList = []
     listRangement = []
     #listIMgBarre = ["/static/img/vinyl-tranche-vert.jpg","/static/img/vinyl-tranche-orange.jpg","/static/img/vinyl-tranche-jaune.jpg","/static/img/vinyl-tranche-violet.jpg","/static/img/vinyl-tranche-rouge.jpg","/static/img/vinyl-tranche-noir.jpg","/static/img/vinyl-tranche-vert.jpg","/static/img/vinyl-tranche-orange.jpg"]
-    support = 'Vinyls'
+    support = 'Vinyl'
     color = const.dictIMgBarre
     
     if rangement == 'MSGEH':
@@ -546,7 +543,8 @@ def storageDetail(rangement):
 @app.route('/about/', methods=['GET'])
 def about():
     #app.logger.debug('route /about/')
-    template_context = dict(version=VERSION, build=BUILD)
+    
+    template_context = dict(version=VERSION, build=BUILD, bdd=DB_NAME)
     return render_template('about.html', **template_context)
 
 ######################
@@ -565,60 +563,137 @@ def not_found(error):
 #         #
 ###########
 
-@app.route('/admin')
-@app.route('/admin/')
-def admin():
-    #app.logger.debug('route /')
-    if not session.get('logged_in'):
-        template_context = dict(version=VERSION, build=BUILD) 
-        return render_template('admin/login.html', **template_context)
-    else:
-        return "Bonjour Alain!"
-
-@app.route('/admin/register', methods=['GET', 'POST'])
-def register():
-    message = ''
-    
-    return render_template('admin/register.html', message=message)
-
-'''
 @app.route('/admin/login', methods=['GET', 'POST'])
-def login():  
+@app.route('/admin/login/', methods=['GET', 'POST'])
+def login():
+    #app.logger.debug(current_user.__dict__)
+    #app.logger.debug(current_user.is_authenticated())
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
     form = LoginForm()
-    if request.method == 'POST' and form.validate_on_submit():
+    if form.validate_on_submit():
+        #user = app.config['USERS_COLLECTION'].find_one({"_id": form.username.data})
         user = mongo.db.users.find_one({"_id": form.username.data})
         if user and User.validate_login(user['password'], form.password.data):
             user_obj = User(user['_id'])
             login_user(user_obj)
-            flash("Identication réussie", category='success')
-            return redirect(request.args.get("next") or url_for("writePost"))
+            flash('Bienvenue, vous êtes connecté!', category='success')
+            return redirect(url_for('index'))
+
         flash("Echec de l'identification. Vérifiez vos nom d'utilisateur et mot de passe!", category='error')
-    return render_template('admin/login.html', title='Connectez vous !', form=form)
-'''
+    return render_template('admin/login-modal.html', title='login', form=form)
 
-@app.route('/admin/login', methods=['POST'])
-def do_admin_login():
-    if request.form['password'] == 'password' and request.form['username'] == 'admin':
-        session['logged_in'] = True
-    else:
-        flash("Echec de l'identification. Vérifiez vos nom d'utilisateur et mot de passe!", category='error')
-    
-    return admin()
+@app.route('/admin/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+    return render_template('admin/settings.html')
 
-@app.route('/admin/stockage/<rangement>/<support>', methods=['GET'])
-def manageStorage(empl, support):
-    releasesIn = mongo.db.releases.find({"storage.nom": empl},{"thumb": 1, "artists.name": 1, "_id": 0, "title": 1, "genres": 1 , "year": 1, "id": 1, "storage.nom": 1, "storage.position": 1}).sort("storage.position", 1)
-    nbIn = len(releasesIn)
-
-    releasesOut = db.releases.find({"formats.name": support, "storage.nom": ""},{"artists.name": 1, "_id": 0,"title": 1,"year":1, "id": 1}).sort("year", 1)
-    nbOut = len(releasesOut)
-
-    template_context = dict(list=listInfosDisk, rangement=rangement, compteur=countList, constRangement=constRangement, empl=listRangement, const=listConstRangement, nbEmpl=len(listRangement), color=color, support=support, version=VERSION)
-    return render_template('admin/manage_storage.html', **template_context )
-
-
+@lm.user_loader
 def load_user(username):
+    #u = app.config['USERS_COLLECTION'].find_one({"_id": username})
     u = mongo.db.users.find_one({"_id": username})
     if not u:
         return None
+    
     return User(u['_id'])
+
+@app.route("/admin/logout")
+def logout():
+    logout_user()
+    flash('Vous êtes déconnecté. A bientôt!', category='error')
+    return redirect(url_for('index'))
+
+@app.route('/admin/stockage/<rangement>/<support>', methods=['GET'])
+@app.route('/admin/stockage/<rangement>/<support>/<int:page_num>', methods=['GET'])
+def manageStorage(rangement, support, page_num=1):
+    #releasesIn = mongo.db.releases.find({"storage.nom": rangement}).sort("storage.position", 1)
+    stockageIn = mongo.db.storage.find({"nom": rangement}).sort("position", 1)
+    nbIn = mongo.db.storage.count({"nom": rangement})
+    
+    listAlbums = []
+    for document in stockageIn:
+        disks = mongo.db.releases.find({"id": document["release"]})
+        
+        if document['release'] == 0:
+            albumItem = {
+                "thumb":"Vide",
+                "id":"",
+                "artistName":"",
+                "title":"",
+                "formatName":"",
+                "year":"",
+                "storage":document['nom'],
+                "position":document['position']
+            }
+            listAlbums.append(albumItem)
+
+        else:
+            for album in disks:
+                artists = album["artists"]
+                artist = artists[0]
+                artistName = artist["name"]
+    
+                formats = album["formats"]
+                typeformat = formats[0]
+                formatName = typeformat["name"]
+                formatQty = typeformat["qty"]
+                formatSupport = "{formats} ({qty})".format(formats=formatName, qty=formatQty)
+
+                storageNom = album["storage"].get('nom')
+                storagePosition = album["storage"].get('position')
+        
+                albumItem = {
+                    "thumb":album["thumb"],
+                    "id":int(album["id"]),
+                    "artistName":artistName,
+                    "title":album["title"],
+                    "formatName":formatSupport,
+                    "year":int(album["year"]),
+                    "storage":storageNom,
+                    "position":storagePosition
+                }
+                listAlbums.append(albumItem)
+
+    paramsTemplateIn = templateParams(listAlbums, page_num, 60, 'admin/stockage/'+rangement+'/'+support)
+    
+    releasesOut = mongo.db.releases.find({"formats.name": support, "storage.nom": ""}).sort("artists.name", 1)
+    listOut = albumDict(releasesOut)
+    nbOut = mongo.db.releases.count({"formats.name": support, "storage.nom": ""})
+    paramsTemplateOut = templateParams(listOut, page_num, 60, 'admin/stockage/'+rangement+'/'+support)
+
+    template_context = dict(paramsIn=paramsTemplateIn, paramsOut=paramsTemplateOut, rangement=rangement, nbIn=nbIn, nbOut=nbOut, support=support, version=VERSION)
+    return render_template('admin/manage_storage.html', **template_context )
+
+@app.route('/admin/stockage/update/<rangement>/support/<int:place>/<int:id>', methods=['GET'])
+@app.route('/admin/stockage/update/<rangement>/support/<int:place>/<float:id>', methods=['GET'])
+@app.route('/admin/stockage/update/<rangement>/support/<int:place>/<int:id>/<int:page_num>', methods=['GET'])
+@app.route('/admin/stockage/update/<rangement>/support/<int:place>/<float:id>/<int:page_num>', methods=['GET'])
+@login_required
+def updateStorage(rangement, support, place, id, page_num=1):
+    
+    try:
+        criteria = id
+        mongo.db.releases.update_one({'id':criteria},{'$set':{'storage.nom':'', 'storage.position':0}})
+          
+    #    try:
+    #        db.storage.update_one({'nom':rangement, 'release':id},{"$set":{"storage" : { "nom" : rangement, "position" : place, "release": 0}}})
+        
+    #    except Exception as excep:
+    #        print(excep)
+
+    except Exception as excep:
+            print(excep)
+    
+    releasesIn = mongo.db.releases.find({"storage.nom": rangement}).sort("storage.position", 1)
+    nbIn = mongo.db.releases.count({"storage.nom": rangement})
+    listIn = albumDict(releasesIn)                
+    paramsTemplateIn = templateParams(listIn, page_num, 60, 'admin/stockage/'+rangement+'/'+support)
+    
+    releasesOut = mongo.db.releases.find({"formats.name": support, "storage.nom": ""}).sort("artists.name", 1)
+    listOut = albumDict(releasesOut)
+    nbOut = mongo.db.releases.count({"formats.name": support, "storage.nom": ""})
+    paramsTemplateOut = templateParams(listOut, page_num, 60, 'admin/stockage/'+rangement+'/'+support)
+
+    template_context = dict(paramsIn=paramsTemplateIn, paramsOut=paramsTemplateOut, rangement=rangement, nbIn=nbIn, nbOut=nbOut, support=support, version=VERSION)
+    return render_template('admin/manage_storage.html', **template_context )

@@ -11,22 +11,39 @@ Created on  9|04
            20|18
 
 @author: rdlc_Dev(alain)
-@version:1.180409 
+@version:1.190130 
 
 """
 
 import os,jinja2
+from pymongo import MongoClient
 
 APP_DIR = os.path.abspath(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 
-VERSION = 'v1.2.0'
-BUILD = '20190113'
+VERSION = 'v1.2.1'
+BUILD = '20190302'
 
-ARTISTS_COLLECTION = 'artists'
-RELEASES_COLLECTION = 'releases'
-USERS_COLLECTION = 'users'
+WTF_CSRF_ENABLED = True
+SECRET_KEY = "175K8P8j6h65p32ltvkcw9WmL18BHBKO"
+
+# Enable protection agains *Cross-site Request Forgery (CSRF)*
+CSRF_ENABLED = True
+
+# Dev
+DB_NAME = 'mymusicDev'
+MONGO_URI = 'mongodb://192.168.1.24:27017/mymusicTests'
+
+# Production
+#DB_NAME = 'mymusicDB'
+#MONGO_URI = 'mongodb://mydiskotekUser:DISK_Ranv14860@192.168.1.24:27017/mymusicDB'
+
+DATABASE = MongoClient()[DB_NAME]
+ARTISTS_COLLECTION = DATABASE.artists
+RELEASES_COLLECTION = DATABASE.releases
+USERS_COLLECTION = DATABASE.users
+SETTINGS_COLLECTION = DATABASE.settings
 
 DEBUG = True
 
@@ -73,14 +90,14 @@ class DevelopementConfig(BaseConfig):
     DEBUG = True
     MONGO_DBNAME = 'mymusicDev'
     MONGO_URI = 'mongodb://192.168.1.24:27017/mymusicDev'
-    
+            
 class TestingConfig(BaseConfig):
     DEBUG = True
     MONGO_DBNAME = 'mymusicTests'
     MONGO_URI = 'mongodb://192.168.1.24:27017/mymusicTests'
-    
+        
 class ProductionConfig(BaseConfig):
     DEBUG = False
     MONGO_DBNAME = 'mymusicDB'
     MONGO_URI = 'mongodb://mydiskotekUser:DISK_Ranv14860@192.168.1.24:27017/mymusicDB'
-    
+        

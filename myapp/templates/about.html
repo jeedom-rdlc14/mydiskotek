@@ -8,7 +8,7 @@
     <div class="row">    
         <div class="col-12">
             <br /><p class="h4">A propos de myDiskOteK</p>
-            <p>Version : {{version}}  ==  Build du : {{build}}</p>
+            <p>Version : {{version}}-[{{bdd}}]  ==  Build : {{build}}</p>
             {{ macros.ligne() }}
             <div class="media">
                 <img src="../static/img/logodiskotek.png" width="100" height="100" class="d-flex mr-3" alt="myDiskotek">
@@ -20,16 +20,9 @@
             </div>
         </div>
     </div>
-    
+    {{ macros.ligne() }}
     <div class="row">
-        <div class="col-2">
-            <br /><p class="h4">Logiciel</p>
-            {{ macros.ligne() }}
-        </div>
-    </div>    
-    
-    <div class="row">
-        <div class="col-6">
+        <div class="col-12">
             <div class="media">
                 <img src="../static/img/python_logo.png" class="img-fluid" alt="Python">
                 <div class="media-body">
@@ -37,8 +30,12 @@
                     Ce langage a été baptisé ainsi en hommage à la troupe les « Monty Python ». </p>
                     <a href="https://www.python.org/" target="_blank" class="btn blue btn-sm">+ sur Python...</a>
                 </div>
-            </div>        
-            {{ macros.ligne() }}
+            </div>
+        </div>
+    </div>
+    {{ macros.ligne() }}
+    <div class="row">
+        <div class="col-12">
             <div class="media">
                 <img src="../static/img/logo-discogs.png" class="img-fluid" alt="Discogs">
                 <div class="media-body">
@@ -49,8 +46,11 @@
                     <a href="https://www.discogs.com/developers/" target="_blank" class="btn blue btn-sm">+ sur l'API...</a>
                 </div>
             </div>
-        </div>    
-        <div class="col-6">
+        </div>
+    </div>
+    {{ macros.ligne() }}
+    <div class="row">    
+        <div class="col-12">
             <div class="media">
                 <img src="../static/img/mongoDB-logo.png" class="img-fluid" alt="MongoDB">
                 <div class="media-body">
@@ -58,7 +58,11 @@
                     <a href="https://www.mongodb.com/" target="_blank" class="btn blue btn-sm">+ sur MongoDB...</a>
                 </div>
             </div>
-            {{ macros.ligne() }}
+        </div>
+    </div>
+    {{ macros.ligne() }}
+    <div class="row">    
+        <div class="col-12">
             <div class="media">
                 <img src="../static/img/flask.png" class="img-fluid" alt="Flask">
                 <div class="media-body">
@@ -68,14 +72,9 @@
             </div>
         </div>
     </div>
+    {{ macros.ligne() }}
     <div class="row">
-            <div class="col-2">
-                <br /><p class="h4">Matériel</p>
-                {{ macros.ligne() }}
-            </div>
-        </div>   
-    <div class="row">
-        <div class="col-6">
+        <div class="col-12">
             <div class="media">
                 <img src="../static/img/Raspberry-Pi-3.jpg" class="img-fluid" alt="Raspberry Pi">
                 <div class="media-body">
@@ -86,7 +85,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+    </div>
+    {{ macros.ligne() }}
+    <div class="row">
+        <div class="col-12">
             <div class="media">
                 <img src="../static/img/logo_gunicorn.jpg" class="img-fluid" alt="Gunicorn">
                 <div class="media-body">
@@ -94,7 +96,11 @@
                     <a href="http://gunicorn.org/" target="_blank" class="btn blue btn-sm">+ sur Gunicorn...</a>
                 </div>
             </div>
-            {{ macros.ligne() }}
+        </div>
+    </div>
+    {{ macros.ligne() }}
+    <div class="row">    
+        <div class="col-12">
             <div class="media">
                 <!--img src="../static/img/flask.png" class="img-fluid" alt="Flask">-->
                 <div class="media-body">

@@ -1,32 +1,101 @@
-{% extends "admin/base.html" %}
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
 
 {% block content %}
+<style>
+    #dropzone {
+      width: 465px;
+      height: 200px;
+      padding: 10px;
+      border: 1px solid #aaaaaa;
+    }
+    #divdrag {
+      border: 5px solid blue;
+      width: 300px;
+      height: 50;
+    }
+
+  </style>
 <div class="container"><br />
     <div class="row">
         {{ macros.ligne() }}
     </div>
     <div class="row">
-    {% set list = paramsPage['list'] %}
-    {% for index in range(0, paramsPage['pagelength']) %}
-    <div class="row text-center">
-        {% set index = loop.index0 * 6 %}
-        {% for colonne in range(0, 6) %}
-            {% set index = index + colonne %}
-            <div class="col-6 col-md-2 col-lg-1">
-                {% if list[index].get('thumb') != 'Vide' %}
-                    <a class="nav-link" href="{{serverURL}}/album/{{list[index].get('id')}}">
-                    <img src="{{list[index].get('thumb')}}" class="img-fluid z-depth-2" alt="image"></a>
-                    <p>{{list[index].get('title')}}
-                    <a class="nav-link" href="{{serverURL}}/artist/{{list[index].get('artistName')}}">{{list[index].get('artistName')}}</a></p>
-                    <p>{{list[index].get('formatName')}}  
-                    {% if (list[index].get('year')) != 0 %}
-                        -- {{list[index].get('year')}}
-                    {% endif %}</p>
-                {% endif %}
+        <div class="col-6">
+            <p class="h5">{{support}}s dans {{rangement}} : {{nbIn}}</p>
+            {% set listIn = paramsIn['list'] %}
+            {% for index in range(0, paramsIn['pagelength']) %}
+                {% set index = loop.index0 * 6 %}
+                {% for colonne in range(0, 6) %}
+                    {% set index = index + colonne %}
+                    {% if listIn[index].get('id') != 0 %} 
+                        <img id="{{listIn[index].get('id')}}" src="{{listIn[index].get('thumb')}}" height="75" width="75" alt="image" draggable="true" 
+                            ondragstart="dragstart_handler(event);" ondragend="dragend_handler(event);" title="{{listIn[index].get('position')}} -- {{listIn[index].get('artistName')}} -- {{listIn[index].get('title')}}">
+                    {% else %}
+                        <img src="../../static/img/default-label.png" height="75" width="75" alt="image" title="{{listIn[index].get('position')}} -- Libre">
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            <div>
+                {{ macros.ligne() }}
+                <button type="button" name="retourstockage" onclick="javascript:history.go(-1);" class="btn blue-gradient btn-sm" data-toggle="tooltip" data-placement="top" title="Retour à la page emplaceùent">Retour page emplacement<i class="fa fa-thumbs-up ml-2" aria-hidden="true"></i></i></button>
             </div>
-        {% endfor %}
+          </div>
+        <div class="col-6">
+          <p class="h5">{{support}}s en attente de classement : {{nbOut}}</p>
+          <!--<div id="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)"></div>-->
+          <div id="dropzone" ondrop="drop_handler(event);" ondragover="dragover_handler(event);"><strong></strong></div>
+          {{ macros.pagination(paramsOut['urlTag'], paramsOut['list'], paramsOut['page_num'], paramsOut['total']) }}
+
+          {% set listOut = paramsOut['list'] %}
+          {% for index in range(0, paramsOut['pagelength']) %}
+            {% set index = loop.index0 * 6 %}
+            {% for colonne in range(0, 6) %}
+              {% set index = index + colonne %}
+              {% if listOut[index].get('thumb') != 'Vide' %}
+                <img src="{{listOut[index].get('thumb')}}" height="75" width="75" alt="image" title="{{listOut[index].get('artistName')}} -- {{listOut[index].get('title')}}">
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
     </div>
-    {% endfor %}
-    </div>
-</div>    
+</div> 
+<script type="text/javascript">
+  
+  function dragstart_handler(ev) {
+      // Change the source element's background color to signify drag has started
+      ev.currentTarget.style.border = "dashed";
+      // Add the id of the drag source element to the drag data 
+      ev.dataTransfer.setData("text", ev.target.id);
+      // Tell the browser both copy and move are possible
+      ev.effectAllowed = "copyMove";
+  }
+
+  function dragover_handler(ev) {
+    // Change the target element's border to signify a drag over event has occurred
+    // ev.currentTarget.style.background = "lightblue";
+    ev.preventDefault();
+  }
+
+  function drop_handler(ev) {
+    ev.preventDefault();
+    // Get the id of drag source element (that was added to the drag data by the dragstart event handler)
+    var release = ev.dataTransfer.getData("text");
+    console.log(release);
+    var update = '{{serverURL}}/admin/stockage/update/{{rangement}}/{{support}}/' + release;
+    console.log(update);
+    ev.target.appendChild(document.getElementById(release));
+    //document.location.href= update;
+  }
+
+  function dragend_handler(ev) {
+    console.log("dragEnd");
+    // Restore source's border
+     ev.target.style.border = "solid black";
+    // Remove all of the drag data
+    ev.dataTransfer.clearData();
+  }
+
+    </script>
+
 {% endblock %}

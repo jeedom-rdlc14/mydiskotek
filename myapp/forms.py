@@ -9,16 +9,13 @@ Created on Tue April 10
 @version:1.180410 
 
 """
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
+    """Login form to access admin pages"""
 
-    username = StringField('Username', validators=[DataRequired()])
+    username = StringField('Utilisateur', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-   # remember_me = BooleanField('Se souvenir de moi')
-    submit = SubmitField('Valider')
-
-    
+    useremail = StringField('Courriel', validators=[DataRequired()])

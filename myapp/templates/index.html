@@ -3,11 +3,11 @@
 {% block content %}
 
 <div class="container">
-    <<div class="row">
+  <!--  <div class="row">
             <hr width="50%" color="white">
-    </div>
+    </div> -->
     {% for compteur in compteurs %}
-    {{ macros.entete(compteur['updated'], 'Tableau de bord', '') }}
+    {{ macros.entete(compteur['updated'], 'Mise à jour', '') }}
     <div class="row">
         <div class="col-12 col-md-6 col-lg-6">
             <p class="h5">par Support</p>

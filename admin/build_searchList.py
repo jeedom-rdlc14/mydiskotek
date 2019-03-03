@@ -63,17 +63,3 @@ with open('listArtists.json', 'w') as file:
         #print(json.dumps(dictArtist, indent=4))
         
     json.dump(artists, file, indent=4)
-        
-#print(artists)
-# 
-'''      
-listArtists = db.releases.distinct('artists.name')
-for artistName in listArtists:
-    cursor = db.releases.find({'artists.name':artistName},{'_id': 0, 'artists': 1})
-    artistDict = cursor[0].get('artists')
-    
-    artistID = int(artistDict[0].get('id'))
-    url = artistDict[0].get('resource_url')
-    
-    print('\n\t== {artist} === {id} == {url}'.format(artist=artistName, id=artistID, url=url))
-'''            

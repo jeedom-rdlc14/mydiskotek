@@ -25,22 +25,22 @@ def albumDict(disks):
         typeformat = formats[0]
         formatName = typeformat["name"]
         formatQty = typeformat["qty"]
-        formats = "{formats} ({qty})".format(formats=formatName, qty=formatQty)
+        support = "{formats} ({qty})".format(formats=formatName, qty=formatQty)
 
         #stockage = album["storage"]
         #stock = stockage[0]
-        #storageNom = stock["nom"]
-        #storagePosition = stock["position"]
+        storageNom = album["storage"].get('nom')
+        storagePosition = album["storage"].get('position')
         
         albumItem = {
             "thumb":album["thumb"],
             "id":int(album["id"]),
             "artistName":artistName,
             "title":album["title"],
-            "formatName":formats,
-            "year":int(album["year"])
-            #"storage":storageNom,
-            #"position":storagePosition
+            "formatName":support,
+            "year":int(album["year"]),
+            "storage":storageNom,
+            "position":storagePosition
         }
         listAlbums.append(albumItem)
     

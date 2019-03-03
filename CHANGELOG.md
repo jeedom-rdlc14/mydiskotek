@@ -1,5 +1,32 @@
 # Changelog mydiskotek
 
+## v1.2.1 build :20190302
+
+    ### Fixed
+
+    problèmes d'affichage sur smartphone
+
+
+    ### Added
+
+    gestion login/ogout
+    gestion du rangement par drag and drop
+
+    ### Changed
+
+    bootstrap.css nouvelle version 4.2.1
+    bootstrap.min.css nouvelle version 4.2.1
+    mdb.css nouvelle version 4.7.3 pro
+    mdb.min.css nouvelle version 4.6.0 pro
+  
+    mdb.js nouvelle version 4.7.3 pro
+    mdb.min.js nouvelle version 4.7.3 pro
+  
+    ### Database
+
+    mymusicDev
+    mise à jour du 02/03/2019
+
 ## v1.2.0
 
     ### Added

@@ -29,6 +29,7 @@ from time import strftime
 # create application instance
 app = Flask(__name__)
 app.config.from_object(os.environ.get('FLASK_ENV') or 'config.DevelopementConfig')
+#app.config.from_object('config')
 
 # initializes extensions
 mongo = PyMongo(app)
