@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container"><br />
 {{ macros.entete(count, 'Artistes', '') }}
+
 {{ macros.pagination('artists', paramsPage['list'], paramsPage['page_num'], paramsPage['total']) }}
     
     {% set list = paramsPage['list'] %}   
@@ -11,7 +12,7 @@
             {% set index = loop.index0 * 6 %}
             {% for colonne in range(0, 6) %}
                 {% set index = index + colonne %}
-                <div class="col-12 col-md-4 col-lg-2 table-bordered">
+                <div class="col-sm table-bordered">
                     {% if list[index].get('thumb') != 'Vide' %}
                         <a class="h6 nav-link blue-text bold" href="{{serverURL}}/artist/{{list[index].get('artistName')}}">{{list[index].get('artistName')}}</a>
                         {% if list[index].get('release') == 1 %}

@@ -271,35 +271,33 @@
   $('.dropdown-button').dropdown();
 
   $.fn.mdbDropSearch = function (options) {
+    let $mdbInput = $(this).find('input');
 
-    var $mdbInput = $(this).find('input');
+    this.filter((value, index) => {
 
-    this.filter(function (value) {
+      $(index).on('keyup', () => {
 
-      $(this).on('keyup', value, function () {
+        let $linksInDropMenu = $mdbInput.closest('div[id]').find('a, li');
 
-        var $linksInDropMenu = $mdbInput.closest('div[id]').find('a, li');
-
-        for (var i = 0; i < $linksInDropMenu.length; i++) {
+        for (let i = 0; i < $linksInDropMenu.length; i++) {
 
           if ($linksInDropMenu.eq(i).html().toUpperCase().indexOf($mdbInput.val().toUpperCase()) > -1) {
 
             $linksInDropMenu.eq(i).css({
               display: ''
             });
-
           } else {
 
             $linksInDropMenu.eq(i).css({
               display: 'none'
             });
           }
-        };
+        }
 
-      })
-    })
+      });
+    });
 
-    var settings = $.extend({
+    let settings = $.extend({
 
       color: '#000',
       backgroundColor: '',
@@ -307,7 +305,6 @@
       fontWeight: '400',
       borderRadius: '',
       borderColor: ''
-
     }, options);
 
     return this.css({
@@ -318,9 +315,9 @@
       fontWeight: settings.fontWeight,
       borderRadius: settings.borderRadius,
       border: settings.border,
-      margin: settings.margin,
+      margin: settings.margin
     });
-  }
+  };
 
 }(jQuery));
 

@@ -1,85 +1,118 @@
-$.fn.mdb_autocomplete = function (options) {
+ $.fn.mdbAutocomplete = function (options) {
 
-  // Default options
-  const defaults = {
-    data: {}
-  };
+   const defaults = {
+     data: {},
+     dataColor: '',
+     xColor: '',
+     xBlurColor: '#ced4da',
+     inputFocus: '1px solid #4285f4',
+     inputBlur: '1px solid #ced4da',
+     inputFocusShadow: '0 1px 0 0 #4285f4',
+     inputBlurShadow: ''
+   };
 
-  const ENTER_CHAR_CODE = 13;
+   const ENTER_CHAR_CODE = 13;
 
-  // Get options
-  options = $.extend(defaults, options);
+   options = $.extend(defaults, options);
 
-  return this.each(function () {
+   return this.each((index, ev) => {
 
-    // text input
-    const $input = $(this);
-    let $autocomplete;
+     const $input = $(ev);
+     let $autocomplete;
+     const data = options.data;
+     const dataColor = options.dataColor;
+     const xColor = options.xColor;
+     const xBlurColor = options.xBlurColor;
+     const inputFocus = options.inputFocus;
+     const inputBlur = options.inputBlur;
+     const inputFocusShadow = options.inputFocusShadow;
+     const inputBlurShadow = options.inputBlurShadow;
 
-    // assign data from options
-    const data = options.data;
+     if (Object.keys(data).length) {
 
-    if (Object.keys(data).length) {
+       $autocomplete = $('<ul class="mdb-autocomplete-wrap"></ul>');
+       $autocomplete.insertAfter($input);
+     }
 
-      $autocomplete = $('<ul class="mdb-autocomplete-wrap"></ul>');
-      $autocomplete.insertAfter($(this));
-    }
+     $input.on('focus', () => {
 
-    // Listen if key was pressed
-    $input.on('keyup', (e) => {
+       $input.css('border-bottom', inputFocus);
+       $input.css('box-shadow', inputFocusShadow);
+     });
 
-      // get value from input
-      const q = $input.val();
+     $input.on('blur', () => {
 
-      $autocomplete.empty();
+       $input.css('border-bottom', inputBlur);
+       $input.css('box-shadow', inputBlurShadow);
+     });
 
-      // check if input isn't empty
-      if (q.length) {
+     $input.on('keyup', e => {
 
-        for (const item in data) {
+       const $inputValue = $input.val();
 
-          // check if item contains value that we're looking for
-          if (data[item].toLowerCase().indexOf(q.toLowerCase()) !== -1) {
+       $autocomplete.empty();
 
-            const option = $(`<li>${data[item]}</li>`);
+       if ($inputValue.length) {
 
-            $autocomplete.append(option);
-          }
-        }
-      }
+         for (const item in data) {
 
-      if (e.which === ENTER_CHAR_CODE) {
+           if (data[item].toLowerCase().indexOf($inputValue.toLowerCase()) !== -1) {
 
-        $autocomplete.children(':first').trigger('click');
-        $autocomplete.empty();
-      }
+             const option = $(`<li>${data[item]}</li>`);
 
-      if (q.length === 0) {
+             $autocomplete.append(option);
+           }
+         }
+       }
 
-        $('.mdb-autocomplete-clear').css('visibility', 'hidden');
-      } else {
+       if (e.which === ENTER_CHAR_CODE) {
 
-        $('.mdb-autocomplete-clear').css('visibility', 'visible');
-      }
-    });
+         $autocomplete.children(':first').trigger('click');
+         $autocomplete.empty();
+       }
 
-    $autocomplete.on('click', 'li', function () {
+       if ($inputValue.length === 0) {
 
-      // Set input value after click
-      $input.val($(this).text());
+         $input.parent().find('.mdb-autocomplete-clear').css('visibility', 'hidden');
+       } else {
 
-      // Clear autocomplete
-      $autocomplete.empty();
-    });
+         $input.parent().find('.mdb-autocomplete-clear').css('visibility', 'visible');
+       }
 
-    $('.mdb-autocomplete-clear').on('click', function (e) {
+       $('.mdb-autocomplete-wrap li').css('color', dataColor);
+     });
 
-      e.preventDefault();
+     $autocomplete.on('click', 'li', e => {
 
-      $input.val('');
-      $(this).css('visibility', 'hidden');
-      $autocomplete.empty();
-      $(this).parent().find('label').removeClass('active');
-    });
-  });
-};
+       $input.val($(e.target).text());
+
+       $autocomplete.empty();
+     });
+
+     $('.mdb-autocomplete-clear').on('click', e => {
+
+       e.preventDefault();
+
+       let $this = $(e.currentTarget);
+
+       $this.parent().find('.mdb-autocomplete').val('');
+       $this.css('visibility', 'hidden');
+       $autocomplete.empty();
+       $this.parent().find('label').removeClass('active');
+     });
+
+     $('.mdb-autocomplete').on('click keyup', e => {
+
+       e.preventDefault();
+       $(e.target).parent().find('.mdb-autocomplete-clear').find('svg').css('fill', xColor);
+     });
+
+     $('.mdb-autocomplete').on('blur', e => {
+
+       e.preventDefault();
+       $(e.target).parent().find('.mdb-autocomplete-clear').find('svg').css('fill', xBlurColor);
+     });
+   });
+ };
+
+ $.fn.mdb_autocomplete = $.fn.mdbAutocomplete;

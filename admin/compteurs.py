@@ -3,11 +3,11 @@
 """
 Created on Mon Apr 30 18:41:04 2018
 
-@author: alain
+@author: rdlc_Dev (alain)
 """
 
-from pymongo import MongoClient
 import datetime
+from mongo import db
 
 '''
 def artistsList():
@@ -90,7 +90,6 @@ def compteurs_sup_cat():
                 categorie = 'Funk Soul'
             
             compteurs[libelle] = counterSupCateg
-        
     
     #maintenant = datetime.datetime.now()
     updated = datetime.datetime.now().strftime('%d-%m-%Y')
@@ -104,17 +103,6 @@ def compteurs_sup_cat():
 
 # main
     
-# Connexion to database
-MONGO_HOST = "192.168.1.24"
-MONGO_PORT = 27017
-MONGO_DB = "mymusicDev"
-MONGO_USER = "mydiskotekUser"
-MONGO_PASS = "DISK_Ranv14860"
-
-connection = MongoClient(MONGO_HOST, MONGO_PORT)
-db = connection[MONGO_DB]
-#db.authenticate(MONGO_USER, MONGO_PASS)
-
 # Getting a Collection
 disks = db['releases']
 

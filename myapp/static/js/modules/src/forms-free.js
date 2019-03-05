@@ -8,10 +8,10 @@
 
   const updateTextFields = ($input) => {
 
-    const $labelAndIcon  = $input.siblings('label, i');
-    const hasValue       = $input.val().length;
+    const $labelAndIcon = $input.siblings('label, i');
+    const hasValue = $input.val().length;
     const hasPlaceholder = $input.attr('placeholder');
-    const addOrRemove    = `${hasValue || hasPlaceholder ? 'add' : 'remove'}Class`;
+    const addOrRemove = `${hasValue || hasPlaceholder ? 'add' : 'remove'}Class`;
 
     $labelAndIcon[addOrRemove]('active');
 
@@ -30,7 +30,7 @@
         $input.removeClass('valid').removeClass('invalid');
       } else {
 
-        const valid  = $input.is(':valid');
+        const valid = $input.is(':valid');
         const length = Number($input.attr('length')) || 0;
 
         if (valid && (!length || length > value.length)) {
@@ -46,12 +46,12 @@
 
   const textAreaAutoResize = () => {
 
-    const $textarea  = $(this);
+    const $textarea = $(this);
     if ($textarea.val().length) {
 
       const $hiddenDiv = $('.hiddendiv');
       const fontFamily = $textarea.css('font-family');
-      const fontSize   = $textarea.css('font-size');
+      const fontSize = $textarea.css('font-size');
 
       if (fontSize) {
 
@@ -82,10 +82,10 @@
 
   $(inputSelector).each((index, input) => {
 
-    const $this          = $(input);
-    const $labelAndIcon  = $this.siblings('label, i');
+    const $this = $(input);
+    const $labelAndIcon = $this.siblings('label, i');
     updateTextFields($this);
-    const isValid        = input.validity.badInput;
+    const isValid = input.validity.badInput;
     if (isValid) {
 
       $labelAndIcon.addClass('active');
@@ -132,9 +132,9 @@
         .removeClass('invalid')
         .each((index, input) => {
 
-          const $this          = $(input);
+          const $this = $(input);
           const noDefaultValue = !$this.val();
-          const noPlaceholder  = !$this.attr('placeholder');
+          const noPlaceholder = !$this.attr('placeholder');
           if (noDefaultValue && noPlaceholder) {
             $this.siblings('label, i').removeClass('active');
           }
@@ -142,9 +142,9 @@
 
       $formReset.find('select.initialized').each((index, select) => {
 
-        const $select        = $(select);
+        const $select = $(select);
         const $visibleInput = $select.siblings('input.select-dropdown');
-        const defaultValue  = $select.children('[selected]').val();
+        const defaultValue = $select.children('[selected]').val();
 
         $select.val(defaultValue);
         $visibleInput.val(defaultValue);

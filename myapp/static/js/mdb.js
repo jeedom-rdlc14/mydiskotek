@@ -1,6 +1,6 @@
 /*!
  * Material Design for Bootstrap 4
- * Version: MDB Pro 4.7.3
+ * Version: MDB Pro 4.7.4
  *
  *
  * Copyright: Material Design for Bootstrap
@@ -62,7 +62,6 @@
   enhanced-modals.js
 
 */
-
 
 /*
  * jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
@@ -14736,181 +14735,209 @@ module.exports = function() {
 
 var WOW;
 
-(function($) {
+(function ($) {
 
-    WOW = function WOW() {
+  WOW = function WOW() {
 
-        return {
+    return {
 
-            init: function init() {
+      init: function init() {
 
-                var animationName = [];
+        var animationName = [];
 
-                var once = 1;
+        var once = 1;
 
-                function mdbWow() {
+        function mdbWow() {
 
-                    var windowHeight = window.innerHeight;
-                    var scroll = window.scrollY;
+          var windowHeight = window.innerHeight;
+          var scroll = window.scrollY;
 
-                    $('.wow').each(function() {
+          $('.wow').each(function () {
 
-                        if ($(this).css('visibility') == 'visible') {
-                            return;
-                        }
-
-                        if (windowHeight + scroll - 100 > getOffset(this) && scroll < getOffset(this) || windowHeight + scroll - 100 > getOffset(this) + $(this).height() && scroll < getOffset(this) + $(this).height() || windowHeight + scroll == $(document).height() && getOffset(this) + 100 > $(document).height()) {
-
-                            var index = $(this).index('.wow');
-
-                            var delay = $(this).attr('data-wow-delay');
-
-                            if (delay) {
-
-                                delay = $(this).attr('data-wow-delay').slice(0, -1
-
-                                );
-                                var self = this;
-
-                                var timeout = parseFloat(delay) * 1000;
-
-                                $(self).addClass('animated');
-                                $(self).css({ 'visibility': 'visible' });
-                                $(self).css({ 'animation-delay': delay });
-                                $(self).css({ 'animation-name': animationName[index] });
-
-                                var removeTime = $(this).css('animation-duration').slice(0, -1) * 1000;
-
-                                if ($(this).attr('data-wow-delay')) {
-
-                                    removeTime += $(this).attr('data-wow-delay').slice(0, -1) * 1000;
-                                }
-
-                                var self = this;
-
-                                setTimeout(function() {
-
-                                    $(self).removeClass('animated');
-                                }, removeTime);
-                            } else {
-
-                                $(this).addClass('animated');
-                                $(this).css({ 'visibility': 'visible' });
-                                $(this).css({ 'animation-name': animationName[index] });
-
-                                var removeTime = $(this).css('animation-duration').slice(0, -1) * 1000;
-
-                                var self = this;
-
-                                setTimeout(function() {
-
-                                    $(self).removeClass('animated');
-                                }, removeTime);
-                            }
-                        }
-                    });
-                }
-
-                function appear() {
-
-                    $('.wow').each(function() {
-
-                        var index = $(this).index('.wow');
-
-                        var delay = $(this).attr('data-wow-delay');
-
-                        if (delay) {
-
-                            delay = $(this).attr('data-wow-delay').slice(0, -1);
-
-                            var timeout = parseFloat(delay) * 1000;
-
-                            $(this).addClass('animated');
-                            $(this).css({ 'visibility': 'visible' });
-                            $(this).css({ 'animation-delay': delay + 's' });
-                            $(this).css({ 'animation-name': animationName[index] });
-                        } else {
-
-                            $(this).addClass('animated');
-                            $(this).css({ 'visibility': 'visible' });
-                            $(this).css({ 'animation-name': animationName[index] });
-                        }
-                    });
-                }
-
-                function hide() {
-
-                    var windowHeight = window.innerHeight;
-                    var scroll = window.scrollY;
-
-                    $('.wow.animated').each(function() {
-
-                        if (windowHeight + scroll - 100 > getOffset(this) && scroll > getOffset(this) + 100 || windowHeight + scroll - 100 < getOffset(this) && scroll < getOffset(this) + 100 || getOffset(this) + $(this).height > $(document).height() - 100) {
-
-                            $(this).removeClass('animated');
-                            $(this).css({ 'animation-name': 'none' });
-                            $(this).css({ 'visibility': 'hidden' });
-                        } else {
-
-                            var removeTime = $(this).css('animation-duration').slice(0, -1) * 1000;
-
-                            if ($(this).attr('data-wow-delay')) {
-
-                                removeTime += $(this).attr('data-wow-delay').slice(0, -1) * 1000;
-                            }
-
-                            var self = this;
-
-                            setTimeout(function() {
-
-                                $(self).removeClass('animated');
-                            }, removeTime);
-                        }
-                    });
-
-                    mdbWow();
-
-                    once--;
-                }
-
-                function getOffset(elem) {
-
-                    var box = elem.getBoundingClientRect();
-
-                    var body = document.body;
-                    var docEl = document.documentElement;
-
-                    var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-
-                    var clientTop = docEl.clientTop || body.clientTop || 0;
-
-                    var top = box.top + scrollTop - clientTop;
-
-                    return Math.round(top);
-                }
-
-                $('.wow').each(function() {
-
-                    $(this).css({ 'visibility': 'hidden' });
-                    animationName[$(this).index('.wow')] = $(this).css('animation-name');
-                    $(this).css({ 'animation-name': 'none' });
-                });
-
-                $(window).scroll(function() {
-
-                    if (once) {
-
-                        hide();
-                    } else {
-
-                        mdbWow();
-                    }
-                });
-
-                appear();
+            if ($(this).css('visibility') == 'visible') {
+              return;
             }
-        };
+
+            if (windowHeight + scroll - 100 > getOffset(this) && scroll < getOffset(this) || windowHeight + scroll - 100 > getOffset(this) + $(this).height() && scroll < getOffset(this) + $(this).height() || windowHeight + scroll == $(document).height() && getOffset(this) + 100 > $(document).height()) {
+
+              var index = $(this).index('.wow');
+
+              var delay = $(this).attr('data-wow-delay');
+
+              if (delay) {
+
+                delay = $(this).attr('data-wow-delay').slice(0, -1
+
+                );
+                var self = this;
+
+                var timeout = parseFloat(delay) * 1000;
+
+                $(self).addClass('animated');
+                $(self).css({
+                  'visibility': 'visible'
+                });
+                $(self).css({
+                  'animation-delay': delay
+                });
+                $(self).css({
+                  'animation-name': animationName[index]
+                });
+
+                var removeTime = $(this).css('animation-duration').slice(0, -1) * 1000;
+
+                if ($(this).attr('data-wow-delay')) {
+
+                  removeTime += $(this).attr('data-wow-delay').slice(0, -1) * 1000;
+                }
+
+                var self = this;
+
+                setTimeout(function () {
+
+                  $(self).removeClass('animated');
+                }, removeTime);
+              } else {
+
+                $(this).addClass('animated');
+                $(this).css({
+                  'visibility': 'visible'
+                });
+                $(this).css({
+                  'animation-name': animationName[index]
+                });
+
+                var removeTime = $(this).css('animation-duration').slice(0, -1) * 1000;
+
+                var self = this;
+
+                setTimeout(function () {
+
+                  $(self).removeClass('animated');
+                }, removeTime);
+              }
+            }
+          });
+        }
+
+        function appear() {
+
+          $('.wow').each(function () {
+
+            var index = $(this).index('.wow');
+
+            var delay = $(this).attr('data-wow-delay');
+
+            if (delay) {
+
+              delay = $(this).attr('data-wow-delay').slice(0, -1);
+
+              var timeout = parseFloat(delay) * 1000;
+
+              $(this).addClass('animated');
+              $(this).css({
+                'visibility': 'visible'
+              });
+              $(this).css({
+                'animation-delay': delay + 's'
+              });
+              $(this).css({
+                'animation-name': animationName[index]
+              });
+            } else {
+
+              $(this).addClass('animated');
+              $(this).css({
+                'visibility': 'visible'
+              });
+              $(this).css({
+                'animation-name': animationName[index]
+              });
+            }
+          });
+        }
+
+        function hide() {
+
+          var windowHeight = window.innerHeight;
+          var scroll = window.scrollY;
+
+          $('.wow.animated').each(function () {
+
+            if (windowHeight + scroll - 100 > getOffset(this) && scroll > getOffset(this) + 100 || windowHeight + scroll - 100 < getOffset(this) && scroll < getOffset(this) + 100 || getOffset(this) + $(this).height > $(document).height() - 100) {
+
+              $(this).removeClass('animated');
+              $(this).css({
+                'animation-name': 'none'
+              });
+              $(this).css({
+                'visibility': 'hidden'
+              });
+            } else {
+
+              var removeTime = $(this).css('animation-duration').slice(0, -1) * 1000;
+
+              if ($(this).attr('data-wow-delay')) {
+
+                removeTime += $(this).attr('data-wow-delay').slice(0, -1) * 1000;
+              }
+
+              var self = this;
+
+              setTimeout(function () {
+
+                $(self).removeClass('animated');
+              }, removeTime);
+            }
+          });
+
+          mdbWow();
+
+          once--;
+        }
+
+        function getOffset(elem) {
+
+          var box = elem.getBoundingClientRect();
+
+          var body = document.body;
+          var docEl = document.documentElement;
+
+          var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+
+          var clientTop = docEl.clientTop || body.clientTop || 0;
+
+          var top = box.top + scrollTop - clientTop;
+
+          return Math.round(top);
+        }
+
+        $('.wow').each(function () {
+
+          $(this).css({
+            'visibility': 'hidden'
+          });
+          animationName[$(this).index('.wow')] = $(this).css('animation-name');
+          $(this).css({
+            'animation-name': 'none'
+          });
+        });
+
+        $(window).scroll(function () {
+
+          if (once) {
+
+            hide();
+          } else {
+
+            mdbWow();
+          }
+        });
+
+        appear();
+      }
     };
+  };
 })(jQuery);
 
 "use strict";
@@ -17069,6 +17096,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
             _this3.removeMenu();
           } else {
+            _this3.menuOut = true;
             _this3.$sidenavOverlay = $('<div id="sidenav-overlay"></div>');
 
             _this3.$body.append(_this3.$sidenavOverlay);
@@ -17191,7 +17219,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     }, {
       key: "hide",
       value: function hide() {
-        this.$sidenavOverlay.trigger('click');
+        this.trigger('click');
       }
     }]);
 
@@ -26657,36 +26685,51 @@ function jarallaxVideo() {
 /******/ ]);
 "use strict";
 
-$.fn.mdb_autocomplete = function (options) {
-  // Default options
+$.fn.mdbAutocomplete = function (options) {
   var defaults = {
-    data: {}
+    data: {},
+    dataColor: '',
+    xColor: '',
+    xBlurColor: '#ced4da',
+    inputFocus: '1px solid #4285f4',
+    inputBlur: '1px solid #ced4da',
+    inputFocusShadow: '0 1px 0 0 #4285f4',
+    inputBlurShadow: ''
   };
-  var ENTER_CHAR_CODE = 13; // Get options
-
+  var ENTER_CHAR_CODE = 13;
   options = $.extend(defaults, options);
-  return this.each(function () {
-    // text input
-    var $input = $(this);
-    var $autocomplete; // assign data from options
-
+  return this.each(function (index, ev) {
+    var $input = $(ev);
+    var $autocomplete;
     var data = options.data;
+    var dataColor = options.dataColor;
+    var xColor = options.xColor;
+    var xBlurColor = options.xBlurColor;
+    var inputFocus = options.inputFocus;
+    var inputBlur = options.inputBlur;
+    var inputFocusShadow = options.inputFocusShadow;
+    var inputBlurShadow = options.inputBlurShadow;
 
     if (Object.keys(data).length) {
       $autocomplete = $('<ul class="mdb-autocomplete-wrap"></ul>');
-      $autocomplete.insertAfter($(this));
-    } // Listen if key was pressed
+      $autocomplete.insertAfter($input);
+    }
 
-
+    $input.on('focus', function () {
+      $input.css('border-bottom', inputFocus);
+      $input.css('box-shadow', inputFocusShadow);
+    });
+    $input.on('blur', function () {
+      $input.css('border-bottom', inputBlur);
+      $input.css('box-shadow', inputBlurShadow);
+    });
     $input.on('keyup', function (e) {
-      // get value from input
-      var q = $input.val();
-      $autocomplete.empty(); // check if input isn't empty
+      var $inputValue = $input.val();
+      $autocomplete.empty();
 
-      if (q.length) {
+      if ($inputValue.length) {
         for (var item in data) {
-          // check if item contains value that we're looking for
-          if (data[item].toLowerCase().indexOf(q.toLowerCase()) !== -1) {
+          if (data[item].toLowerCase().indexOf($inputValue.toLowerCase()) !== -1) {
             var option = $("<li>".concat(data[item], "</li>"));
             $autocomplete.append(option);
           }
@@ -26698,27 +26741,38 @@ $.fn.mdb_autocomplete = function (options) {
         $autocomplete.empty();
       }
 
-      if (q.length === 0) {
-        $('.mdb-autocomplete-clear').css('visibility', 'hidden');
+      if ($inputValue.length === 0) {
+        $input.parent().find('.mdb-autocomplete-clear').css('visibility', 'hidden');
       } else {
-        $('.mdb-autocomplete-clear').css('visibility', 'visible');
+        $input.parent().find('.mdb-autocomplete-clear').css('visibility', 'visible');
       }
-    });
-    $autocomplete.on('click', 'li', function () {
-      // Set input value after click
-      $input.val($(this).text()); // Clear autocomplete
 
+      $('.mdb-autocomplete-wrap li').css('color', dataColor);
+    });
+    $autocomplete.on('click', 'li', function (e) {
+      $input.val($(e.target).text());
       $autocomplete.empty();
     });
     $('.mdb-autocomplete-clear').on('click', function (e) {
       e.preventDefault();
-      $input.val('');
-      $(this).css('visibility', 'hidden');
+      var $this = $(e.currentTarget);
+      $this.parent().find('.mdb-autocomplete').val('');
+      $this.css('visibility', 'hidden');
       $autocomplete.empty();
-      $(this).parent().find('label').removeClass('active');
+      $this.parent().find('label').removeClass('active');
+    });
+    $('.mdb-autocomplete').on('click keyup', function (e) {
+      e.preventDefault();
+      $(e.target).parent().find('.mdb-autocomplete-clear').find('svg').css('fill', xColor);
+    });
+    $('.mdb-autocomplete').on('blur', function (e) {
+      e.preventDefault();
+      $(e.target).parent().find('.mdb-autocomplete-clear').find('svg').css('fill', xBlurColor);
     });
   });
 };
+
+$.fn.mdb_autocomplete = $.fn.mdbAutocomplete;
 /*
     Enhanced Bootstrap Modals
     https://mdbootstrap.com

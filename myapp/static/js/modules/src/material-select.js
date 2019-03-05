@@ -209,13 +209,13 @@
       const optgroupClass = type === 'optgroup-option' ? 'optgroup-option' : '';
 
       const iconUrl = $nativeSelectChild.data('icon');
-      const fa = $nativeSelectChild.data('fas') ? `<i class="fas fa-${$nativeSelectChild.data('fas')}"></i>` : '';
+      const fa = $nativeSelectChild.data('fas') ? `<i class="fas fa-${$nativeSelectChild.data('fas')}"></i> ` : '';
       const classes = $nativeSelectChild.attr('class');
 
       const iconHtml = iconUrl ? `<img alt="" src="${iconUrl}" class="${classes}">` : '';
       const checkboxHtml = this.isMultiple ? `<input type="checkbox" class="form-check-input" ${disabled}/><label></label>` : '';
 
-      this.$materialOptionsList.append($(`<li class="${disabled} ${optgroupClass}">${iconHtml}<span class="filtrable">${checkboxHtml} ${fa} ${$nativeSelectChild.html()}</span></li>`));
+      this.$materialOptionsList.append($(`<li class="${disabled} ${optgroupClass}">${iconHtml}<span class="filtrable">${checkboxHtml}${fa}${$nativeSelectChild.html()}</span></li>`));
     }
 
     enableValidation() {
@@ -707,7 +707,7 @@
 
         const text = this.$nativeSelect.find('option').eq(this.valuesSelected[i]).text();
 
-        value += `,${text}`;
+        value += `, ${text}`;
       }
 
       if (itemsCount >= 5) {

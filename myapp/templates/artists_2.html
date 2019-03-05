@@ -51,8 +51,8 @@
                 {% set index = loop.index0 * 6 %}
                     {% for colonne in range(0, 6) %}
                         {% set index = index + colonne %}
-                        <div class="col col-md-4 col-lg-2">
-                            <div class="col-sm card-text"> 
+                        <div class="col12 col-md-4 col-lg-2 card-text">
+                            <!-- <div class="col-sm card-text">  -->
                             {% if list[index].get('thumb') != 'Vide' %}
                                 <a class="nav-link" href="{{serverURL}}/album/{{list[index].get('id')}}">
                                 <img src="{{list[index].get('thumb')}}" class="img-fluid z-depth-2" alt="image"></a>
@@ -62,7 +62,7 @@
                                     -- {{list[index].get('year')}}
                                 {% endif %}</p>
                             {% endif %}
-                            </div>
+                            <!-- </div> -->
                         </div>
                     {% endfor %}
                 </div>
@@ -74,7 +74,7 @@
     </div>
 
     <div class="form-row">    
-        <div class="col-6 col-md-6 col-lg-6 ">
+        <div class="col-12 col-md-6 col-lg-6 ">
             {% set listUrls = artistInfos[0].get('urls') %}
             <div class="table-responsive table-fixed">
                 <table class="table-striped table-bordered" cellspacing="8" width="100%">
@@ -93,7 +93,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-6 col-md-6 col-lg-6 ">
+        <div class="col-12 col-md-6 col-lg-6 ">
             {% if artistInfos[0].get('membersLength') > 0 %}
             {% set members = artistInfos[0].get('members') %}
             <div class="table-responsive table-fixed ">

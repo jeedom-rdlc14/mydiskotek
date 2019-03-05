@@ -35,35 +35,35 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active" id="#index">
-                <a class="nav-link" href="{{ url_for('index') }}"><i class="fa fa-home"></i>Accueil</a> 
+                <a class="nav-link" data-toggle="tooltip" title="Accueil Tableau de Bord." href="{{ url_for('index') }}"><i class="fa fa-home"></i>Accueil</a> 
             </li>
             <li class="nav-item active" id="#listshome">
-                <a class="nav-link" href="{{ url_for('list') }}"><i class="fa fa-list-ul"></i>Listes</a> 
+                <a class="nav-link" data-toggle="tooltip" title="Listes des albums." href="{{ url_for('list') }}"><i class="fa fa-list-ul"></i>Listes</a> 
             </li>
             <li class="nav-item" id="#artists">
-                <a class="nav-link" href="{{ url_for('list_artists') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Artistes</a>
+                <a class="nav-link" data-toggle="tooltip" title="Artistes" href="{{ url_for('list_artists') }}"><i class="fas fa-users" aria-hidden="true"></i>&nbsp;Artistes</a>
             </li>
                 <li class="nav-item" id="#stockage">
-                    <a class="nav-link" href="{{ url_for('storage') }}"><i class="fa fa-barcode" aria-hidden="true"></i>&nbsp;Stockage</a>
+                    <a class="nav-link" data-toggle="tooltip" title="Rangement des albums."href="{{ url_for('storage') }}"><i class="fa fa-barcode" aria-hidden="true"></i>&nbsp;Stockage</a>
                 </li>
             <li class="nav-item" id="#about">
-                    <a class="nav-link" href="{{ url_for('about') }}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;A propos</a>
+                    <a class="nav-link" data-toggle="tooltip" title="A propos de myDiskOteK." href="{{ url_for('about') }}"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;A propos</a>
                 </li>
             <li class="nav-item" id="#">
                 <p>  </p>
             </li>
             <form>
                 <div class="md-form form-inline my-0" id="multi-dataset">
-                    <input class="form-control form-control-lg mr-sm-2 typeahead" type="text" placeholder="artiste, album ou titre">
+                    <input class="form-control form-control-lg mr-sm-2 typeahead" data-toggle="tooltip" title="Recherche par artiste, album ou titre." type="text" placeholder="artiste, album ou titre">
                 </div>
             </form>
             
         </ul>
         <ul class="nav navbar-nav nav-flex-icons ml-auto">
             {% if current_user.is_authenticated %}
-                <li><a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt fa-2x white-text"></i></a></li>
+                <li><a class="nav-link" data-toggle="tooltip" title="Déconnectez vous!" href="{{ url_for('logout') }}"><i class="fas fa-user-alt-slash fa-2x white-text"></i></a></li>
             {% else %}
-                <li><a class="nav-link" href="{{ url_for('login') }}"><i class="fa fa-user fa-2x white-text"></i></a></li>
+                <li><a class="nav-link" data-toggle="tooltip" title="Connectez vous!" href="{{ url_for('login') }}"><i class="fas fa-user-cog fa-2x white-text"></i></a></li>
             {% endif %}
             
         </ul>
